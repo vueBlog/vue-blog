@@ -41,3 +41,13 @@ npm run test:unit
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+使用 .env 和 .env.local 来进行变量配置，在 .env 中配置所有的变量， .env.local 中配置本地开发所需要的变量，在本地运行时， .env.local 会覆盖 .env 中对应的变量。
+
+注意：只有以 `VUE_APP_` 开头的变量会被 webpack.DefinePlugin 静态嵌入到客户端侧的包中。你可以在应用的代码中这样访问它们：
+
+```javascript
+console.log(process.env.VUE_APP_SECRET)
+```
+
+在构建过程中，`process.env.VUE_APP_SECRET` 将会被相应的值所取代。在 `VUE_APP_SECRET=secret` 的情况下，它会被替换为 `"secret"`。

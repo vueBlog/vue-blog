@@ -7,6 +7,9 @@ import './plugins/element.js'
 import moment from 'moment'
 import './common/style/common.scss'
 
+console.log(process.env.VUE_APP_host)
+console.log(process.env.VUE_APP_pathname)
+
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment
 
