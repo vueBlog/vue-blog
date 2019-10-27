@@ -1,18 +1,9 @@
 <template>
-  <el-container class="home">
+  <el-container class="list">
     <el-aside width="268px">
       <aside-card
         :cardType="1"
         title="最新文章"></aside-card>
-      <aside-card
-        :cardType="2"
-        title="博客专栏"></aside-card>
-      <aside-card
-        :cardType="3"
-        title="热门文章"></aside-card>
-      <aside-card
-        :cardType="4"
-        title="博客归档"></aside-card>
     </el-aside>
     <el-main class="content">
       <div class="content_header clearfix">
@@ -58,7 +49,7 @@ import AsideCard from './../components/AsideCard.vue'
 import listArticle from './../components/listArticle.vue'
 
 export default {
-  name: 'home',
+  name: 'list',
   data () {
     return {
       justOriginal: false,

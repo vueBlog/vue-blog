@@ -1,12 +1,23 @@
-// 全局自定义样式
+@import './element-variables.scss';
 
+// 全局自定义样式
 html,
 body {
+  margin: 0;
+  padding: 0;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
-  background-color: #f4f5f5;
+  color: $--color-text-primary;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+$page-width: 1150px !default;
+$header-height: 60px !default;
+$logo-size: 34px !default;
+$border-color:#e6e6e6 !default;
+$split-line-color:#ddd !default;
 
 // 浮动
 .clearfix {

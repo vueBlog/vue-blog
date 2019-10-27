@@ -1,0 +1,9 @@
+@import './../common.scss';
+
+.footer {
+  width: $page-width;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 60px;
+  border-top: solid 1px $border-color;
+}

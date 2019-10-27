@@ -1,0 +1,66 @@
+@import './../common.scss';
+
+.item_box {
+  padding: 10px 20px;
+  border-bottom: solid 1px $border-color;
+  &:hover {
+    background-color: #f5f5f5;
+    .footer {
+      .footer_editor {
+        display: block;
+      }
+    }
+  }
+  .header {
+    line-height: 32px;
+    color: $--color-info;
+    text-decoration: none;
+    &:hover {
+      color: $--color-primary;
+    }
+    .header_icon {
+      margin-right: 12px;
+    }
+    h2 {
+      margin: 0;
+      display: inline-block;
+      font-size: 14px;
+    }
+  }
+  .content {
+    display: block;
+    margin: 8px 0;
+    line-height: 20px;
+    color: $--color-info;
+    text-decoration: none;
+    &:hover {
+      color: $--color-primary;
+    }
+  }
+  .footer {
+    height: 32px;
+    line-height: 32px;
+    color: $--color-info;
+    .footer_editor {
+      display: none;
+      .footer_item:hover {
+        color: $--color-primary;
+        cursor: pointer;
+      }
+    }
+    .footer_item {
+      display: inline-block;
+      span {
+        color: $--color-primary;
+      }
+    }
+    .footer_line {
+      margin: 0 8px;
+      display: inline-block;
+      vertical-align: -3px;
+      width: 1px;
+      height: 16px;
+      background-color: $split-line-color;
+    }
+  }
+}

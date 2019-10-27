@@ -1,36 +1,42 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-container>
+      <el-header class="header_box">
+        <page-header></page-header>
+      </el-header>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+      <el-footer>
+        <page-footer></page-footer>
+      </el-footer>
+    </el-container>
+    <el-backtop></el-backtop>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PageHeader from './components/PageHeader.vue'
+import PageFooter from './components/PageFooter.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    PageHeader,
+    PageFooter
   }
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  .header_box {
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    padding: 0;
+    background: #fff;
+  }
 }
 </style>

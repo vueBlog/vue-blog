@@ -1,0 +1,51 @@
+@import './../common.scss';
+
+.header {
+  width: $page-width;
+  margin: 0 auto;
+  border-bottom: solid 1px $border-color;
+
+  .logo_box {
+    width: 200px;
+    height: $header-height;
+    display: flex;
+    align-items: center;
+
+    .logo {
+      margin: 13px;
+      width: $logo-size;
+      height: $logo-size;
+      border-radius: 50%;
+    }
+
+    .logo_text {
+      flex: 1;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .search_box {
+    margin: 12px 30px;
+  }
+
+  .header_nav {
+    border-bottom: 0;
+  }
+
+  .user_box {
+    width: 120px;
+
+    .user_box--header_img {
+      margin: 15px 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .user_box--name {
+      margin-right: 10px;
+      font-size: 14px;
+    }
+  }
+}
