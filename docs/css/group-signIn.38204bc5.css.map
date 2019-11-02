@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///src/views/C:/Users/72310/Desktop/vueBlog/vue-blog/src/style/views/sign-in.scss"],"names":[],"mappings":"AAAA,2BACE,gBAAiB,CACjB,WAAY,CAFd,qCAKI,aAAc","file":"group-signIn.38204bc5.css","sourcesContent":[".sign-box {\r\n  margin: 40px auto;\r\n  width: 500px;\r\n\r\n  .form-box {\r\n    margin: 20px 0;\r\n  }\r\n}"]}

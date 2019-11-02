@@ -1,6 +1,6 @@
 module.exports = {
   publicPath: '/vue-blog/',
-  outputDir: undefined,
+  outputDir: 'docs',
   assetsDir: undefined,
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
