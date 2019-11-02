@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'prevAndNext'
+  name: 'PrevAndNext'
 }
 </script>
 

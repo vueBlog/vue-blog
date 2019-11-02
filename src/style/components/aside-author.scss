@@ -1,0 +1,18 @@
+@import './../common.scss';
+
+.author {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .item {
+    .title {
+      color: $--color-info;
+    }
+    .number {
+      text-align: center;
+      color: $--color-primary;
+      font-weight: 700;
+    }
+  }
+}

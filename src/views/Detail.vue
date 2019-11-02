@@ -39,7 +39,7 @@
 
 <script>
 import AsideCard from './../components/AsideCard.vue'
-import prevAndNext from './../components/prevAndNext.vue'
+import prevAndNext from './../components/PrevAndNext.vue'
 import 'highlight.js/scss/default.scss'
 import 'highlight.js/styles/vs2015.css'
 import hljs from 'highlight.js/lib/highlight'

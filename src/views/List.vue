@@ -46,7 +46,7 @@
 
 <script>
 import AsideCard from './../components/AsideCard.vue'
-import listArticle from './../components/listArticle.vue'
+import ListArticle from './../components/ListArticle.vue'
 
 export default {
   name: 'list',
@@ -70,7 +70,7 @@ export default {
   },
   components: {
     AsideCard,
-    listArticle
+    ListArticle
   }
 }
 </script>
