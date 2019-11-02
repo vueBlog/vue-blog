@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueProgressBar from 'vue-progressbar'
 import './plugins/axios'
 import App from './App.vue'
 import router from './router'
@@ -9,6 +10,12 @@ import './style/common.scss'
 
 console.log(process.env.VUE_APP_host)
 console.log(process.env.VUE_APP_pathname)
+
+const options = {
+  color: '#409EFF'
+}
+
+Vue.use(VueProgressBar, options)
 
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment

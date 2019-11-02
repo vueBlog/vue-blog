@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <vue-progress-bar></vue-progress-bar>
     <el-container>
       <el-header class="header-box" v-if="layoutShow">
         <page-header></page-header>
@@ -36,6 +37,19 @@ export default {
       }
       return true
     }
+  },
+  created () {
+    this.$Progress.start()
+    this.$router.beforeEach((to, from, next) => {
+      this.$Progress.start()
+      next()
+    })
+    this.$router.afterEach((to, from) => {
+      this.$Progress.finish()
+    })
+  },
+  mounted () {
+    this.$Progress.finish()
   }
 }
 </script>

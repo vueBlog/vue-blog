@@ -4,6 +4,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import './element.js'
 import store from './../store'
+import app from './../main'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || ''
@@ -26,7 +27,8 @@ let pageAxiosList = new Set() // 用于解决同时请求多个 service 接口�
 let axiosSource // 需要最新的链接的保存参数的地方，适用于搜索框
 
 _axios.interceptors.request.use(
-  function (config) {
+  config => {
+    app.$Progress.start()
     // Do something before request is sent
     if (config.showLoading && !pageAxiosList.size) {
       pageLoading = Vue.prototype.$loading({
@@ -58,7 +60,7 @@ _axios.interceptors.request.use(
 
     return config
   },
-  function (error) {
+  error => {
     // Do something with request error
     pageLoading && pageLoading.close()
     Vue.prototype.$message.error({
@@ -72,7 +74,8 @@ _axios.interceptors.request.use(
 
 // Add a response interceptor
 _axios.interceptors.response.use(
-  function (response) {
+  response => {
+    app.$Progress.finish()
     // Do something with response data
     let nowUrl = response.config.url
     if (pageAxiosList.has(nowUrl)) {
@@ -96,7 +99,7 @@ _axios.interceptors.response.use(
 
     return response
   },
-  function (error) {
+  error => {
     // Do something with response error
     if (_axios.isCancel(error)) {
       // 判断是否是切换路由导致的取消，如果是的话还需要将 pageAxiosList 清空
