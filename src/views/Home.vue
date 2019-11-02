@@ -15,9 +15,9 @@
         title="博客归档"></aside-card>
     </el-aside>
     <el-main class="content">
-      <div class="content_header clearfix">
+      <div class="content-header clearfix">
         <el-checkbox v-model="justOriginal">仅看原创</el-checkbox>
-        <div class="content_header--select fr">
+        <div class="content-header_select fr">
           <span>文章排序：</span>
           <el-select v-model="headerSelectValue" placeholder="请选择">
             <el-option
@@ -29,7 +29,7 @@
           </el-select>
         </div>
       </div>
-      <div class="content_list">
+      <div class="content-list">
         <list-article></list-article>
         <list-article></list-article>
         <list-article></list-article>
@@ -42,7 +42,7 @@
         <list-article></list-article>
         <list-article></list-article>
       </div>
-      <div class="content_footer">
+      <div class="content-footer">
         <el-pagination
           background
           layout="prev, pager, next"

@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header class="header_box">
+      <el-header class="header-box" v-if="layoutShow">
         <page-header></page-header>
       </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer>
+      <el-footer v-if="layoutShow" height="120px">
         <page-footer></page-footer>
       </el-footer>
     </el-container>
@@ -21,16 +21,28 @@ import PageFooter from './components/PageFooter.vue'
 
 export default {
   name: 'app',
+  data () {
+    return {
+    }
+  },
   components: {
     PageHeader,
     PageFooter
+  },
+  computed: {
+    layoutShow () {
+      if (/\/editor\/?\d*/.test(this.$route.path)) {
+        return false
+      }
+      return true
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 #app {
-  .header_box {
+  .header-box {
     position: sticky;
     left: 0;
     top: 0;

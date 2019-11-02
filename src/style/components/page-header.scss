@@ -5,7 +5,7 @@
   margin: 0 auto;
   border-bottom: solid 1px $border-color;
 
-  .logo_box {
+  .logo-box {
     width: 200px;
     height: $header-height;
     display: flex;
@@ -18,32 +18,32 @@
       border-radius: 50%;
     }
 
-    .logo_text {
+    .logo-text {
       flex: 1;
       font-size: 18px;
       font-weight: bold;
     }
   }
 
-  .search_box {
+  .search-box {
     margin: 12px 30px;
   }
 
-  .header_nav {
+  .header-nav {
     border-bottom: 0;
   }
 
-  .user_box {
+  .user-box {
     width: 120px;
 
-    .user_box--header_img {
+    .user-box_header-img {
       margin: 15px 10px;
       width: 30px;
       height: 30px;
       border-radius: 50%;
     }
 
-    .user_box--name {
+    .user-box_name {
       margin-right: 10px;
       font-size: 14px;
     }

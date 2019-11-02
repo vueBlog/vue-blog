@@ -1,0 +1,33 @@
+@import './../common.scss';
+
+.detail {
+  .detail-header {
+    padding: 15px;
+    border-bottom: 1px solid $border-color;
+    .title {
+      margin: 0 0 0 60px;
+      line-height: 32px;
+    }
+    .detail-info {
+      margin: 15px 0;
+      line-height: 32px;
+      .info-item {
+        display: inline-block;
+      }
+      .item-author {
+        color: $--color-primary;
+        text-decoration: none;
+      }
+      .info-item + .info-item {
+        margin-left: 20px;
+      }
+    }
+  }
+  .detail-content {
+    padding: 15px;
+  }
+}
+
+.el-button + .el-button {
+  margin-right: 10px;
+}

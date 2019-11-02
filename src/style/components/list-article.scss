@@ -1,12 +1,12 @@
 @import './../common.scss';
 
-.item_box {
+.item-box {
   padding: 10px 20px;
   border-bottom: solid 1px $border-color;
   &:hover {
     background-color: #f5f5f5;
     .footer {
-      .footer_editor {
+      .footer-editor {
         display: block;
       }
     }
@@ -18,7 +18,7 @@
     &:hover {
       color: $--color-primary;
     }
-    .header_icon {
+    .header-icon {
       margin-right: 12px;
     }
     h2 {
@@ -41,20 +41,20 @@
     height: 32px;
     line-height: 32px;
     color: $--color-info;
-    .footer_editor {
+    .footer-editor {
       display: none;
-      .footer_item:hover {
+      .footer-item:hover {
         color: $--color-primary;
         cursor: pointer;
       }
     }
-    .footer_item {
+    .footer-item {
       display: inline-block;
       span {
         color: $--color-primary;
       }
     }
-    .footer_line {
+    .footer-line {
       margin: 0 8px;
       display: inline-block;
       vertical-align: -3px;

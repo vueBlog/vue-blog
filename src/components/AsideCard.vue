@@ -1,12 +1,12 @@
 <template>
-  <el-card class="box_card"
+  <el-card class="box-card"
     shadow="never">
     <div slot="header" class="clearfix">
       <span>{{ title }}</span>
     </div>
-    <div v-for="o in 4" :key="o" class="box_card--item">
+    <div v-for="o in 4" :key="o" class="box-card_item">
       <router-link
-        class="box_card--item_link clearfix"
+        class="box-card_item-link clearfix"
         to="/about">
           <span class="sub-title fr">100 {{ subTitle }}</span>
           <span class="title ellipsis">{{'列表内容 ' + o }}</span>

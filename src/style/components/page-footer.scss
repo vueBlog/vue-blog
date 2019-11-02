@@ -3,7 +3,31 @@
 .footer {
   width: $page-width;
   margin: 0 auto;
+  padding: 15px 0;
   text-align: center;
-  line-height: 60px;
+  line-height: 30px;
+  color: $--color-info;
   border-top: solid 1px $border-color;
+  .link-box {
+    color: $--color-info;
+    font-size: 14px;
+    .link-item {
+      margin-left: 10px;
+      text-decoration: none;
+      color: $--color-info;
+      &:hover {
+        color: $--color-primary;
+      }
+    }
+  }
+  .website-information {
+    .author {
+      margin: 0 5px;
+      text-decoration: none;
+      color: $--color-info;
+      &:hover {
+        color: $--color-primary;
+      }
+    }
+  }
 }

@@ -1,12 +1,12 @@
 <template>
   <div class="header clearfix">
-    <div class="logo_box fl">
+    <div class="logo-box fl">
       <img class="logo" src="./../assets/logo.jpg" alt="logo">
-      <div class="logo_text">{{ logoText }}</div>
+      <div class="logo-text">{{ logoText }}</div>
     </div>
     <div class="fr clearfix">
       <el-autocomplete
-        class="search_box fl"
+        class="search-box fl"
         v-model="searchValue"
         :fetch-suggestions="querySearchAsync"
         placeholder="请输入内容"
@@ -16,7 +16,7 @@
         @select="searchHandleSelect"
       ></el-autocomplete>
       <el-menu
-        class="header_nav fl"
+        class="header-nav fl"
         :default-active="activeIndex"
         mode="horizontal"
         :router="true"
@@ -39,9 +39,9 @@
             index="6"
             route="/admin">
             <template slot="title">
-              <div class="user_box clearfix">
-                <img class="user_box--header_img fl" src="./../assets/header.jpg" alt="用户头像">
-                <div class="user_box--name ellipsis">fxsswoemnefsafsdfsdf</div>
+              <div class="user-box clearfix">
+                <img class="user-box_header-img fl" src="./../assets/header.jpg" alt="用户头像">
+                <div class="user-box_name ellipsis">fxsswoemnefsafsdfsdf</div>
               </div>
             </template>
             <el-menu-item index="2-1">选项1</el-menu-item>

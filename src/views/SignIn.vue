@@ -1,14 +1,14 @@
 <template>
-  <div class="sign_box">
+  <div class="sign-box">
     <el-tabs
       v-model="activeName"
       stretch
       @tab-click="handleClick">
       <el-tab-pane label="登录" name="signIn">
-        <sign-in-form class="form_box"></sign-in-form>
+        <sign-in-form class="form-box"></sign-in-form>
       </el-tab-pane>
       <el-tab-pane label="注册" name="register">
-        <sign-in-form class="form_box" :register="true"></sign-in-form>
+        <sign-in-form class="form-box" :register="true"></sign-in-form>
       </el-tab-pane>
     </el-tabs>
   </div>

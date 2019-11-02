@@ -4,6 +4,8 @@ const PageHome = () => import(/* webpackChunkName: "group-home" */ './../views/H
 const PageList = () => import(/* webpackChunkName: "group-list" */ './../views/List.vue')
 const PageAbout = () => import(/* webpackChunkName: "group-about" */ './../views/About.vue')
 const PageSignIn = () => import(/* webpackChunkName: "group-signIn" */ './../views/SignIn.vue')
+const PageDetail = () => import(/* webpackChunkName: "group-detail" */ './../views/Detail.vue')
+const PageEditor = () => import(/* webpackChunkName: "group-editor" */ './../views/Editor.vue')
 
 Vue.use(VueRouter)
 
@@ -46,6 +48,26 @@ const routes = [
       title: `登录/注册 | ${process.env.VUE_APP_title}的博客`,
       keywords: `登录/注册 | ${process.env.VUE_APP_keywords}的博客`,
       description: `登录/注册 | ${process.env.VUE_APP_description}的博客`
+    }
+  },
+  {
+    path: '/detail',
+    name: 'detail',
+    component: PageDetail,
+    meta: {
+      title: `文章详情 | ${process.env.VUE_APP_title}的博客`,
+      keywords: `文章详情 | ${process.env.VUE_APP_keywords}的博客`,
+      description: `文章详情 | ${process.env.VUE_APP_description}的博客`
+    }
+  },
+  {
+    path: '/editor',
+    name: 'editor',
+    component: PageEditor,
+    meta: {
+      title: `编辑文章 | ${process.env.VUE_APP_title}的博客`,
+      keywords: `编辑文章 | ${process.env.VUE_APP_keywords}的博客`,
+      description: `编辑文章 | ${process.env.VUE_APP_description}的博客`
     }
   }
 ]

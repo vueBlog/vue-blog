@@ -1,10 +1,10 @@
 @import './../common.scss';
 
-.box_card {
+.box-card {
   margin-bottom: 15px;
-  .box_card--item {
+  .box-card_item {
     line-height: 26px;
-    .box_card--item_link {
+    .box-card_item-link {
       display: block;
       height: 26px;
       color: $--color-info;
