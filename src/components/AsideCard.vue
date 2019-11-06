@@ -7,7 +7,7 @@
     <div v-for="o in 4" :key="o" class="box-card_item">
       <router-link
         class="box-card_item-link clearfix"
-        to="/about">
+        to="/list">
           <span class="sub-title fr">100 {{ subTitle }}</span>
           <span class="title ellipsis">{{'列表内容 ' + o }}</span>
         </router-link>

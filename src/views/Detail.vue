@@ -45,8 +45,12 @@ import 'highlight.js/styles/vs2015.css'
 import hljs from 'highlight.js/lib/highlight'
 import javascript from 'highlight.js/lib/languages/javascript'
 import MarkdownIt from 'markdown-it'
+import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
 hljs.registerLanguage('javascript', javascript)
 let md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
@@ -64,10 +68,18 @@ export default {
   name: 'detail',
   data () {
     return {
-      content: `在进项项目开发中经常会遇到不同环境切换的问题，比如说开发环境和正式环境对应不同服务器的 mysql ，总不能每次切换不同环境的时候修改代码，这样既容易出错，也不利于代码维护，所以这个时候就需要用到环境变量来进行配置了。
+      content: `@[toc]在进项项目开发中经常会遇到不同环境切换的问题，比如说开发环境和正式环境对应不同服务器的 mysql ，总不能每次切换不同环境的时候修改代码，这样既容易出错，也不利于代码维护，所以这个时候就需要用到环境变量来进行配置了。
 
 ## 开发环境
-在开发环境中，我们一般链接的是本地服务器的 mysql ，这个时候我们可以通过以下设置来进行变量控制`
+在开发环境中，我们一般链接的是本地服务器的 mysql ，这个时候我们可以通过以下设置来进行变量控制
+
+### 环境变量配置
+环境变量配置环境变量配置环境变量配置环境变量配置环境变量配置环境变量配置环境变量配置
+
+## 生产环境
+生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境生产环境
+
+`
     }
   },
   components: {
@@ -76,7 +88,11 @@ export default {
   },
   computed: {
     markdownHtml () {
-      return this.content && md.render(this.content)
+      return this.content && md.use(markdownItTocAndAnchor, {
+        tocCallback: function (tocMarkdown, tocArray, tocHtml) {
+          console.log(tocArray)
+        }
+      }).render(this.content)
     }
   }
 }
@@ -85,4 +101,41 @@ export default {
 <style lang="scss" scoped>
 @import './../style/views/home.scss';
 @import './../style/views/detail.scss';
+</style>
+
+<style lang="scss">
+.markdownIt-TOC {
+  padding: 0;
+  margin: 0 0 15px 15px;
+  float: right;
+  list-style: none;
+  &::before {
+    content: '目录：';
+    font-weight: 700;
+    color: currentColor;
+    margin-left: 18px;
+    line-height: 26px;
+  }
+  a {
+    text-decoration: none;
+    color: #666;
+    &:hover {
+      color: #409EFF;
+    }
+  }
+}
+.article-content {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  h1, h2, h3, h4, h5, h6 {
+    a {
+      color: #409EFF;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
 </style>

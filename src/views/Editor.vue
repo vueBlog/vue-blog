@@ -87,7 +87,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          console.log(this.articleInfo.desc)
         } else {
           console.log('error submit!!')
           return false

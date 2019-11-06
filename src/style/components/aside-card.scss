@@ -6,11 +6,10 @@
     .box-card_item-link {
       display: block;
       height: 26px;
-      color: $--color-info;
+      color: $theme-light-color;
       text-decoration: none;
       &:hover {
         color: $--color-primary;
-        text-decoration: underline;
       }
       .sub-title {
         font-size: 12px;
