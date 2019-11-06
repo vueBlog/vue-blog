@@ -13,7 +13,7 @@
   }
   .header {
     line-height: 32px;
-    color: $--color-info;
+    color: $theme-color;
     text-decoration: none;
     &:hover {
       color: $--color-primary;
@@ -31,7 +31,7 @@
     display: block;
     margin: 8px 0;
     line-height: 20px;
-    color: $--color-info;
+    color: $theme-color;
     text-decoration: none;
     &:hover {
       color: $--color-primary;
@@ -40,7 +40,7 @@
   .footer {
     height: 32px;
     line-height: 32px;
-    color: $--color-info;
+    color: $theme-color;
     .footer-editor {
       display: none;
       .footer-item:hover {
@@ -50,6 +50,11 @@
     }
     .footer-item {
       display: inline-block;
+      color: $theme-color;
+      text-decoration: none;
+      &:hover {
+        color: $--color-primary;
+      }
       span {
         color: $--color-primary;
       }
