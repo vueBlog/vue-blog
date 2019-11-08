@@ -4,6 +4,8 @@ import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import SkeletonRect from './components/skeleton/rect/index.js'
+import SkeletonCircle from './components/skeleton/circle/index.js'
 import './plugins/element.js'
 import moment from 'moment'
 import './style/common.scss'
@@ -16,6 +18,8 @@ const options = {
 }
 
 Vue.use(VueProgressBar, options)
+Vue.use(SkeletonRect)
+Vue.use(SkeletonCircle)
 
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment

@@ -1,6 +1,7 @@
 <template>
   <el-container class="home">
     <el-aside width="268px">
+      <aside-card-skeleton></aside-card-skeleton>
       <aside-card
         :cardType="1"
         title="最新文章"></aside-card>
@@ -55,6 +56,7 @@
 
 <script>
 import AsideCard from './../components/AsideCard.vue'
+import AsideCardSkeleton from './../components/AsideCardSkeleton.vue'
 import ListArticle from './../components/ListArticle.vue'
 
 export default {
@@ -79,6 +81,7 @@ export default {
   },
   components: {
     AsideCard,
+    AsideCardSkeleton,
     ListArticle
   }
 }
