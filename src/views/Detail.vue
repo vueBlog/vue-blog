@@ -1,6 +1,7 @@
 <template>
   <el-container class="detail">
     <el-aside width="268px">
+      <aside-card-skeleton></aside-card-skeleton>
       <aside-card
         :cardType="1"
         title="最新文章"></aside-card>
@@ -38,6 +39,7 @@
 </template>
 
 <script>
+import AsideCardSkeleton from './../components/AsideCardSkeleton.vue'
 import AsideCard from './../components/AsideCard.vue'
 import prevAndNext from './../components/PrevAndNext.vue'
 import 'highlight.js/scss/default.scss'
@@ -45,7 +47,7 @@ import 'highlight.js/styles/vs2015.css'
 import hljs from 'highlight.js/lib/highlight'
 import javascript from 'highlight.js/lib/languages/javascript'
 import MarkdownIt from 'markdown-it'
-import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
+// import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
 hljs.registerLanguage('javascript', javascript)
 let md = new MarkdownIt({
   html: true,
@@ -83,16 +85,18 @@ export default {
     }
   },
   components: {
+    AsideCardSkeleton,
     AsideCard,
     prevAndNext
   },
   computed: {
     markdownHtml () {
-      return this.content && md.use(markdownItTocAndAnchor, {
-        tocCallback: function (tocMarkdown, tocArray, tocHtml) {
-          console.log(tocArray)
-        }
-      }).render(this.content)
+      // return this.content && md.use(markdownItTocAndAnchor, {
+      //   tocCallback: function (tocMarkdown, tocArray, tocHtml) {
+      //     console.log(tocArray)
+      //   }
+      // }).render(this.content)
+      return this.content && md.render(this.content)
     }
   }
 }

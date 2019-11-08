@@ -26,7 +26,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/style/skeleton.scss';
 .rect {
   flex: 0 0 auto;
   background-color: #efefef;
