@@ -1,6 +1,7 @@
 <template>
   <el-container class="about">
     <el-aside width="268px">
+      <aside-author-skeleton></aside-author-skeleton>
       <el-collapse v-model="activeName" accordion>
         <el-collapse-item name="1">
           <template slot="title">
@@ -46,6 +47,9 @@
         </div>
       </div>
       <div class="content-list">
+        <list-article-skeleton></list-article-skeleton>
+        <list-article-skeleton></list-article-skeleton>
+        <list-article-skeleton></list-article-skeleton>
         <list-article></list-article>
         <list-article></list-article>
         <list-article></list-article>
@@ -70,6 +74,8 @@
 </template>
 
 <script>
+import AsideAuthorSkeleton from './../components/AsideAuthorSkeleton.vue'
+import ListArticleSkeleton from './../components/ListArticleSkeleton.vue'
 import AsideAuthor from './../components/AsideAuthor.vue'
 import AsideCard from './../components/AsideCard.vue'
 import ListArticle from './../components/ListArticle.vue'
@@ -96,6 +102,8 @@ export default {
     }
   },
   components: {
+    AsideAuthorSkeleton,
+    ListArticleSkeleton,
     AsideCard,
     ListArticle,
     AsideAuthor

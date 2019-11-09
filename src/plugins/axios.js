@@ -4,7 +4,6 @@ import Vue from 'vue'
 import axios from 'axios'
 import './element.js'
 import store from './../store'
-import app from './../main'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || ''
@@ -28,7 +27,6 @@ let axiosSource // 需要最新的链接的保存参数的地方，适用于搜�
 
 _axios.interceptors.request.use(
   config => {
-    app.$Progress.start()
     // Do something before request is sent
     if (config.showLoading && !pageAxiosList.size) {
       pageLoading = Vue.prototype.$loading({
@@ -75,7 +73,6 @@ _axios.interceptors.request.use(
 // Add a response interceptor
 _axios.interceptors.response.use(
   response => {
-    app.$Progress.finish()
     // Do something with response data
     let nowUrl = response.config.url
     if (pageAxiosList.has(nowUrl)) {
