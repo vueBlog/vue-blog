@@ -16,6 +16,7 @@
         title="博客归档"></aside-card>
     </el-aside>
     <el-main class="content">
+      <detail-skeleton></detail-skeleton>
       <div class="detail-header">
         <div class="title-box clearfix">
           <el-tag class="fl">原创</el-tag>
@@ -40,6 +41,7 @@
 
 <script>
 import AsideCardSkeleton from './../components/AsideCardSkeleton.vue'
+import DetailSkeleton from './../components/DetailSkeleton.vue'
 import AsideCard from './../components/AsideCard.vue'
 import prevAndNext from './../components/PrevAndNext.vue'
 import 'highlight.js/scss/default.scss'
@@ -47,7 +49,7 @@ import 'highlight.js/styles/vs2015.css'
 import hljs from 'highlight.js/lib/highlight'
 import javascript from 'highlight.js/lib/languages/javascript'
 import MarkdownIt from 'markdown-it'
-// import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
+import markdownItTocAndAnchor from 'markdown-it-toc-and-anchor'
 hljs.registerLanguage('javascript', javascript)
 let md = new MarkdownIt({
   html: true,
@@ -70,6 +72,7 @@ export default {
   name: 'detail',
   data () {
     return {
+      markdownHtml: '',
       content: `@[toc]在进项项目开发中经常会遇到不同环境切换的问题，比如说开发环境和正式环境对应不同服务器的 mysql ，总不能每次切换不同环境的时候修改代码，这样既容易出错，也不利于代码维护，所以这个时候就需要用到环境变量来进行配置了。
 
 ## 开发环境
@@ -86,17 +89,20 @@ export default {
   },
   components: {
     AsideCardSkeleton,
+    DetailSkeleton,
     AsideCard,
     prevAndNext
   },
-  computed: {
-    markdownHtml () {
-      // return this.content && md.use(markdownItTocAndAnchor, {
-      //   tocCallback: function (tocMarkdown, tocArray, tocHtml) {
-      //     console.log(tocArray)
-      //   }
-      // }).render(this.content)
-      return this.content && md.render(this.content)
+  mounted () {
+    this.getMarkdownHtml()
+  },
+  methods: {
+    getMarkdownHtml () {
+      let res
+      res = md.use(markdownItTocAndAnchor).render(this.content)
+      this.$nextTick(() => {
+        this.markdownHtml = res
+      })
     }
   }
 }

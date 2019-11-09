@@ -112,8 +112,9 @@ export default {
           if (this.$route.path === '/editor') res = '5'
           if (this.$route.path === '/admin') res = '6'
         }
+        if (this.$route.path === '/detail') res = ''
       }
-      return res || '1'
+      return res
     }
   },
   created () {

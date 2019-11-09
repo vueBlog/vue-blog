@@ -26,6 +26,7 @@ Vue.prototype.$moment = moment
 
 router.beforeEach((to, from, next) => {
   Vue.prototype.$message.closeAll()
+  console.log(to)
   document.title = to.meta.title
   document.querySelector('meta[name="keywords"]').setAttribute('content', to.meta.keywords)
   document.querySelector('meta[name="description"]').setAttribute('content', to.meta.description)
