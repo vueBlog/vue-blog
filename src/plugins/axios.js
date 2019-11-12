@@ -32,10 +32,7 @@ _axios.interceptors.request.use(
       pageLoading = Vue.prototype.$loading({
         fullscreen: true,
         lock: true,
-        text: '加载中...',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.6)',
-        customClass: 'page-loading-box'
+        text: '加载中...'
       })
     }
 

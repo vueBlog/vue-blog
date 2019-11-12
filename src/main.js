@@ -4,6 +4,7 @@ import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Cookies from 'js-cookie'
 import SkeletonRect from './components/skeleton/rect/index.js'
 import SkeletonCircle from './components/skeleton/circle/index.js'
 import './plugins/element.js'
@@ -23,10 +24,10 @@ Vue.use(SkeletonCircle)
 
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment
+Vue.prototype.$cookie = Cookies
 
 router.beforeEach((to, from, next) => {
   Vue.prototype.$message.closeAll()
-  console.log(to)
   document.title = to.meta.title
   document.querySelector('meta[name="keywords"]').setAttribute('content', to.meta.keywords)
   document.querySelector('meta[name="description"]').setAttribute('content', to.meta.description)
