@@ -46,6 +46,7 @@
             <el-menu-item index="6-1" :route="`/admin/${userInfo.id}`">个人中心</el-menu-item>
             <el-menu-item index="6-2" route="/views">访问量</el-menu-item>
             <el-menu-item index="6-3" route="/authority" v-if="userInfo.admin">授权</el-menu-item>
+            <el-menu-item index="6-4" route="/signIn">退出</el-menu-item>
           </el-submenu>
         </template>
       </el-menu>
@@ -139,6 +140,10 @@ export default {
     },
     menuHandleSelect (item) {
       console.log(item)
+      if (item === '6-4') {
+        this.$store.commit('signIn/setToken', '')
+        this.$cookie.remove('vueBlogToken', { path: '' })
+      }
     }
   }
 }
