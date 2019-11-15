@@ -116,11 +116,18 @@ export default {
         password: md5(this.ruleForm.pass)
       })
       if (result.isok) {
-        let content = result.data.admin ? '注册成功，现在去登录吧...' : '注册成功，等待管理员同意'
+        let content = result.data.admin ? '注册成功，现在去写文章' : '注册成功，等待管理员同意'
+        if (result.data.admin) {
+          this.$store.commit('signIn/setToken', result.data.token)
+          this.$cookie.set('vueBlogToken', result.data.token, { expires: 7, path: '' })
+          this.$nextTick(() => {
+            this.$store.dispatch('tokenGetUserInfo')
+          })
+        }
         this.$alert(content, '提示', {
           confirmButtonText: '确定',
           callback: action => {
-            this.$emit('toSignIn')
+            this.$router.push('/')
           }
         })
       }
@@ -131,7 +138,11 @@ export default {
         password: md5(this.ruleForm.pass)
       })
       if (result.isok) {
-        this.$cookie.set('vueBlogEmail', this.ruleForm.email, { expires: 7, path: '' })
+        this.$store.commit('signIn/setToken', result.data.token)
+        this.$cookie.set('vueBlogToken', result.data.token, { expires: 7, path: '' })
+        this.$nextTick(() => {
+          this.$store.dispatch('tokenGetUserInfo')
+        })
         this.$router.push({ path: '/' })
       }
     },

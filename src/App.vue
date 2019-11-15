@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import PageHeader from './components/PageHeader.vue'
 import PageFooter from './components/PageFooter.vue'
 
@@ -36,7 +37,13 @@ export default {
         return false
       }
       return true
-    }
+    },
+    ...mapState({
+      token: state => state.signIn.token
+    }),
+    ...mapState([
+      'userInfo'
+    ])
   },
   created () {
     this.$Progress.start()
@@ -50,6 +57,13 @@ export default {
   },
   mounted () {
     this.$Progress.finish()
+    let token = this.$cookie.get('vueBlogToken')
+    if (token) {
+      this.$store.commit('signIn/setToken', token)
+      this.$nextTick(() => {
+        this.$store.dispatch('tokenGetUserInfo')
+      })
+    }
   }
 }
 </script>

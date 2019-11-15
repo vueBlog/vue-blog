@@ -36,17 +36,16 @@
             index="5"
             route="/editor">写新文章</el-menu-item>
           <el-submenu
-            index="6"
-            route="/admin">
+            index="6">
             <template slot="title">
               <div class="user-box clearfix">
                 <img class="user-box_header-img fl" src="./../assets/header.jpg" alt="用户头像">
-                <div class="user-box_name ellipsis">fxsswoemnefsafsdfsdf</div>
+                <div class="user-box_name ellipsis">{{ userInfo.name }}</div>
               </div>
             </template>
-            <el-menu-item index="2-1">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
+            <el-menu-item index="6-1" :route="`/admin/${userInfo.id}`">个人中心</el-menu-item>
+            <el-menu-item index="6-2" route="/views">访问量</el-menu-item>
+            <el-menu-item index="6-3" route="/authority" v-if="userInfo.admin">授权</el-menu-item>
           </el-submenu>
         </template>
       </el-menu>
@@ -92,7 +91,8 @@ export default {
   },
   computed: {
     ...mapState({
-      logoText: 'logoText'
+      logoText: 'logoText',
+      userInfo: 'userInfo'
     }),
     ...mapGetters([
       'signStatus'

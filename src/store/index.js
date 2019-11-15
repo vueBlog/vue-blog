@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import signIn from './signIn'
+import { apiTokenGetUserInfo } from './../service/index'
 
 Vue.use(Vuex)
 const CancelToken = axios.CancelToken
@@ -11,13 +13,20 @@ export default new Vuex.Store({
     logoText: process.env.VUE_APP_title || '',
     logoDescription: process.env.VUE_APP_description || '',
     userInfo: {
-      // name: 'fxss'
+      id: '',
+      name: '',
+      email: '',
+      admin: '',
+      authority: 0
     }
   },
   getters: {
-    signStatus: state => {
-      return !!state.userInfo.name
+    signStatus (state) {
+      return !!state.signIn.token
     }
+  },
+  modules: {
+    signIn
   },
   mutations: {
     setSource (state, obj) {
@@ -29,7 +38,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-  },
-  modules: {
+    async tokenGetUserInfo ({ state, commit }) {
+      let result = await apiTokenGetUserInfo({
+        token: state.signIn.token
+      })
+      commit('setUserInfo', result.data)
+    }
   }
 })

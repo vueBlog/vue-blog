@@ -1,6 +1,6 @@
-// import home from './home'
-const apiList = {
-  // home
-}
+import Vue from 'vue'
+import '@/plugins/axios'
 
-export default apiList
+export const apiTokenGetUserInfo = (paramsData) => {
+  return Vue.axios.post('/api/tokenGetUserInfo', paramsData)
+}

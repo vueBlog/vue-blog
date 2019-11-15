@@ -8,7 +8,7 @@
         <sign-in-form class="form-box"></sign-in-form>
       </el-tab-pane>
       <el-tab-pane label="注册" name="register">
-        <sign-in-form class="form-box" :register="true" @toSignIn="toSignIn"></sign-in-form>
+        <sign-in-form class="form-box" :register="true"></sign-in-form>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -30,9 +30,6 @@ export default {
   methods: {
     handleClick (tab, event) {
       // console.log(tab, event)
-    },
-    toSignIn () {
-      this.activeName = 'signIn'
     }
   }
 }
