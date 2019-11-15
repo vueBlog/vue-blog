@@ -4,13 +4,13 @@
       <el-input
         v-model="ruleForm.name"
         placeholder="请输入用户名称"
-        @keyup.enter="submitForm('ruleForm')"></el-input>
+        @keyup.enter.native="submitForm('ruleForm')"></el-input>
     </el-form-item>
     <el-form-item label="邮箱" prop="email">
       <el-input
         v-model="ruleForm.email"
         placeholder="请输入邮箱"
-        @keyup.enter="submitForm('ruleForm')"></el-input>
+        @keyup.enter.native="submitForm('ruleForm')"></el-input>
     </el-form-item>
     <el-form-item label="密码" prop="pass">
       <el-input
@@ -18,7 +18,7 @@
         v-model="ruleForm.pass"
         autocomplete="off"
         placeholder="请输入密码（字母数字下划线）"
-        @keyup.enter="submitForm('ruleForm')"></el-input>
+        @keyup.enter.native="submitForm('ruleForm')"></el-input>
     </el-form-item>
     <el-form-item label="确认密码" prop="checkPass" v-if="register">
       <el-input
@@ -26,7 +26,7 @@
         v-model="ruleForm.checkPass"
         autocomplete="off"
         placeholder="请再次输入密码（字母数字下划线）"
-        @keyup.enter="submitForm('ruleForm')"></el-input>
+        @keyup.enter.native="submitForm('ruleForm')"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm('ruleForm')">{{ register ? '立即创建' : '登录' }}</el-button>
