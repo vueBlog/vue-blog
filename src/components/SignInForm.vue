@@ -132,7 +132,6 @@ export default {
       })
       if (result.isok) {
         this.$cookie.set('vueBlogEmail', this.ruleForm.email, { expires: 7, path: '' })
-        this.$cookie.set('vueBlogPassword', md5(this.ruleForm.pass), { expires: 7, path: '' })
         this.$router.push({ path: '/' })
       }
     },
