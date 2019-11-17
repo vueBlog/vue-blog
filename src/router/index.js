@@ -61,7 +61,7 @@ const routes = [
     }
   },
   {
-    path: '/editor',
+    path: '/editor/:id?',
     name: 'editor',
     component: PageEditor,
     meta: {

@@ -36,7 +36,6 @@
       <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
     </el-form-item>
     <el-form-item label="文章内容" prop="desc">
-      <!-- <el-input type="textarea" v-model="articleInfo.desc"></el-input> -->
       <mavon-editor
         v-model="articleInfo.desc"
         codeStyle="vs2015"
@@ -48,14 +47,16 @@
       </mavon-editor>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('articleInfo')">保存</el-button>
+      <el-button type="primary" @click="submitForm('articleInfo')">{{ $route.params.id ? '更新' : '保存' }}</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import './../plugins/mavon-editor'
 import toolbars from './../plugins/mavon-editor-toolbars'
+import { apiAddArticle } from './../service/editor'
 
 export default {
   name: 'editor',
@@ -83,16 +84,45 @@ export default {
       inputValue: ''
     }
   },
+  computed: {
+    ...mapState([
+      'userInfo'
+    ])
+  },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.articleInfo.desc)
+          if (this.$route.params.id) {
+            // 更新数据
+          } else {
+            // 新建文章
+            this.apiAddArticleMethod()
+          }
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    async apiAddArticleMethod () {
+      let result = await apiAddArticle({
+        authorId: this.userInfo.id,
+        authorName: this.userInfo.name,
+        title: this.articleInfo.name,
+        nature: this.articleInfo.nature,
+        keyWords: this.articleInfo.keyWords,
+        content: this.articleInfo.desc
+      })
+      if (result.isok) {
+        let content = this.$route.params.id ? '文章更新成功' : '文章保存成功'
+        this.$alert(content, '提示', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$router.push('/')
+          }
+        })
+      }
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
@@ -108,7 +138,7 @@ export default {
     },
     handleInputConfirm () {
       let inputValue = this.inputValue
-      if (inputValue) {
+      if (inputValue && !this.articleInfo.keyWords.includes('baidu')) {
         this.articleInfo.keyWords.push(inputValue)
       }
       this.inputVisible = false
