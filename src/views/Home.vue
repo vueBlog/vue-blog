@@ -31,26 +31,25 @@
         </div>
       </div>
       <div class="content-list">
-        <list-article-skeleton></list-article-skeleton>
-        <list-article-skeleton></list-article-skeleton>
-        <list-article-skeleton></list-article-skeleton>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
-        <list-article></list-article>
+        <template v-if="!articleList.length">
+          <list-article-skeleton></list-article-skeleton>
+          <list-article-skeleton></list-article-skeleton>
+          <list-article-skeleton></list-article-skeleton>
+          <list-article-skeleton></list-article-skeleton>
+          <list-article-skeleton></list-article-skeleton>
+        </template>
+        <template v-else>
+          <list-article v-for="item in articleList" :key="item.articleId" :info="item" @deleteArticle="deleteArticle"></list-article>
+        </template>
       </div>
       <div class="content-footer">
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="1000">
+          :total="total"
+          :page-size="limit"
+          :current-page="page"
+          @current-change="handleCurrentChange">
         </el-pagination>
       </div>
     </el-main>
@@ -62,6 +61,8 @@ import AsideCardSkeleton from './../components/AsideCardSkeleton.vue'
 import ListArticleSkeleton from './../components/ListArticleSkeleton.vue'
 import AsideCard from './../components/AsideCard.vue'
 import ListArticle from './../components/ListArticle.vue'
+
+import { apiArticleList } from './../service/article'
 
 export default {
   name: 'home',
@@ -80,7 +81,11 @@ export default {
           value: '2',
           label: '按点赞数'
         }
-      ]
+      ],
+      articleList: [],
+      total: 0,
+      limit: 5,
+      page: 1
     }
   },
   components: {
@@ -88,6 +93,34 @@ export default {
     ListArticleSkeleton,
     AsideCard,
     ListArticle
+  },
+  created () {
+    this.page = this.$route.query.page || 1
+    this.apiArticleListMethod()
+  },
+  methods: {
+    async apiArticleListMethod () {
+      let result = await apiArticleList({
+        limit: this.limit,
+        page: this.page
+      })
+      if (result.isok) {
+        this.total = result.data.total
+        this.articleList = result.data.list
+      }
+    },
+    deleteArticle () {
+      console.log('deleteArticle')
+    },
+    handleCurrentChange (val) {
+      this.$router.push({ path: '/', query: { page: val } })
+    }
+  },
+  watch: {
+    '$route.query.page': function (value) {
+      this.page = value
+      this.apiArticleListMethod()
+    }
   }
 }
 </script>
