@@ -17,10 +17,10 @@
     </el-aside>
     <el-main class="content">
       <div class="content-header clearfix">
-        <el-checkbox v-model="justOriginal">仅看原创</el-checkbox>
+        <el-checkbox v-model="justOriginal" @change="toJustOriginal">仅看原创</el-checkbox>
         <div class="content-header_select fr">
           <span>文章排序：</span>
-          <el-select v-model="headerSelectValue" placeholder="请选择">
+          <el-select v-model="order" @change="orderChange" placeholder="请选择">
             <el-option
               v-for="item in headerSelect"
               :key="item.value"
@@ -69,16 +69,16 @@ export default {
   data () {
     return {
       justOriginal: false,
-      headerSelectValue: '0',
+      order: 0,
       headerSelect: [
         {
-          value: '0',
+          value: 0,
           label: '默认'
         }, {
-          value: '1',
+          value: 1,
           label: '按访问量'
         }, {
-          value: '2',
+          value: 2,
           label: '按点赞数'
         }
       ],
@@ -95,14 +95,18 @@ export default {
     ListArticle
   },
   created () {
-    this.page = this.$route.query.page || 1
+    this.page = this.$route.query.page * 1 || 1
+    this.justOriginal = !!this.$route.query.original
+    this.order = this.$route.query.order * 1 || 0
     this.apiArticleListMethod()
   },
   methods: {
     async apiArticleListMethod () {
       let result = await apiArticleList({
         limit: this.limit,
-        page: this.page
+        page: this.page,
+        justOriginal: this.justOriginal,
+        order: this.order
       })
       if (result.isok) {
         this.total = result.data.total
@@ -114,11 +118,25 @@ export default {
     },
     handleCurrentChange (val) {
       this.$router.push({ path: '/', query: { page: val } })
+    },
+    toJustOriginal (val) {
+      this.$router.push({ path: '/', query: { ...this.$route.query, original: val, page: 1 } })
+    },
+    orderChange (val) {
+      this.$router.push({ path: '/', query: { ...this.$route.query, order: val, page: 1 } })
     }
   },
   watch: {
     '$route.query.page': function (value) {
       this.page = value
+      this.apiArticleListMethod()
+    },
+    '$route.query.original': function (value) {
+      this.justOriginal = value
+      this.apiArticleListMethod()
+    },
+    '$route.query.order': function (value) {
+      this.order = value
       this.apiArticleListMethod()
     }
   }

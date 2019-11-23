@@ -108,7 +108,6 @@ export default {
     async apiAddArticleMethod () {
       let result = await apiAddArticle({
         authorId: this.userInfo.id,
-        authorName: this.userInfo.name,
         title: this.articleInfo.name,
         nature: this.articleInfo.nature,
         keyWords: this.articleInfo.keyWords,
