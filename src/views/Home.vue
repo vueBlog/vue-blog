@@ -96,7 +96,7 @@ export default {
   },
   created () {
     this.page = this.$route.query.page * 1 || 1
-    this.justOriginal = !!this.$route.query.original
+    this.justOriginal = this.$route.query.original ? this.$route.query.original === 'true' : false
     this.order = this.$route.query.order * 1 || 0
     this.apiArticleListMethod()
   },
