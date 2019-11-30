@@ -27,6 +27,7 @@ let axiosSource // 需要最新的链接的保存参数的地方，适用于搜�
 
 _axios.interceptors.request.use(
   config => {
+    console.log(config)
     // Do something before request is sent
     if (config.showLoading && !pageAxiosList.size) {
       pageLoading = Vue.prototype.$loading({
@@ -77,7 +78,7 @@ _axios.interceptors.response.use(
     }
 
     if (response.config.showLoading && !pageAxiosList.size) {
-      pageLoading.close()
+      pageLoading && pageLoading.close()
     }
 
     if (response.data.isok) {

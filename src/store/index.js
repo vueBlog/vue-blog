@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import signIn from './signIn'
+import signIn from './signInStore'
+import aside from './asideStore'
 import { apiTokenGetUserInfo } from './../service/index'
 
 Vue.use(Vuex)
@@ -26,7 +27,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    signIn
+    signIn, aside
   },
   mutations: {
     setSource (state, obj) {

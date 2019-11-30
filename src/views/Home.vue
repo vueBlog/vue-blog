@@ -1,19 +1,16 @@
 <template>
   <el-container class="home">
     <el-aside width="268px">
-      <aside-card-skeleton></aside-card-skeleton>
-      <aside-card
-        :cardType="1"
-        title="最新文章"></aside-card>
-      <aside-card
-        :cardType="2"
-        title="博客专栏"></aside-card>
-      <aside-card
-        :cardType="3"
-        title="热门文章"></aside-card>
-      <aside-card
-        :cardType="4"
-        title="博客归档"></aside-card>
+      <template v-if="!asideList.length">
+        <aside-card-skeleton v-for="i in 3" :key="i"></aside-card-skeleton>
+      </template>
+      <template v-else>
+        <aside-card v-for="item in asideList"
+          :key="item.type"
+          :cardType="item.type"
+          :title="item.title"
+          :info="item.info"></aside-card>
+      </template>
     </el-aside>
     <el-main class="content">
       <div class="content-header clearfix">
@@ -62,83 +59,20 @@ import ListArticleSkeleton from './../components/ListArticleSkeleton.vue'
 import AsideCard from './../components/AsideCard.vue'
 import ListArticle from './../components/ListArticle.vue'
 
-import { apiArticleList } from './../service/article'
+import asideMixin from './../mixin/asideMixin'
+import listArticleMixin from './../mixin/listArticleMixin'
 
 export default {
   name: 'home',
+  mixins: [asideMixin, listArticleMixin],
   data () {
-    return {
-      justOriginal: false,
-      order: 0,
-      headerSelect: [
-        {
-          value: 0,
-          label: '默认'
-        }, {
-          value: 1,
-          label: '按访问量'
-        }, {
-          value: 2,
-          label: '按点赞数'
-        }
-      ],
-      articleList: [],
-      total: 0,
-      limit: 5,
-      page: 1
-    }
+    return {}
   },
   components: {
     AsideCardSkeleton,
     ListArticleSkeleton,
     AsideCard,
     ListArticle
-  },
-  created () {
-    this.page = this.$route.query.page * 1 || 1
-    this.justOriginal = this.$route.query.original ? this.$route.query.original === 'true' : false
-    this.order = this.$route.query.order * 1 || 0
-    this.apiArticleListMethod()
-  },
-  methods: {
-    async apiArticleListMethod () {
-      let result = await apiArticleList({
-        limit: this.limit,
-        page: this.page,
-        justOriginal: this.justOriginal,
-        order: this.order
-      })
-      if (result.isok) {
-        this.total = result.data.total
-        this.articleList = result.data.list
-      }
-    },
-    deleteArticle () {
-      console.log('deleteArticle')
-    },
-    handleCurrentChange (val) {
-      this.$router.push({ path: '/', query: { page: val } })
-    },
-    toJustOriginal (val) {
-      this.$router.push({ path: '/', query: { ...this.$route.query, original: val, page: 1 } })
-    },
-    orderChange (val) {
-      this.$router.push({ path: '/', query: { ...this.$route.query, order: val, page: 1 } })
-    }
-  },
-  watch: {
-    '$route.query.page': function (value) {
-      this.page = value
-      this.apiArticleListMethod()
-    },
-    '$route.query.original': function (value) {
-      this.justOriginal = value
-      this.apiArticleListMethod()
-    },
-    '$route.query.order': function (value) {
-      this.order = value
-      this.apiArticleListMethod()
-    }
   }
 }
 </script>

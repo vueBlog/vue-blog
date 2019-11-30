@@ -51,7 +51,7 @@ const routes = [
     }
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'detail',
     component: PageDetail,
     meta: {

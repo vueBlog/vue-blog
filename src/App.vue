@@ -54,9 +54,6 @@ export default {
     this.$router.afterEach((to, from) => {
       this.$Progress.finish()
     })
-  },
-  mounted () {
-    this.$Progress.finish()
     let token = this.$cookie.get('vueBlogToken')
     if (token) {
       this.$store.commit('signIn/setToken', token)
@@ -64,6 +61,9 @@ export default {
         this.$store.dispatch('tokenGetUserInfo')
       })
     }
+  },
+  mounted () {
+    this.$Progress.finish()
   }
 }
 </script>

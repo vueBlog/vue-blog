@@ -4,12 +4,12 @@
     <div slot="header" class="clearfix">
       <span>{{ title }}</span>
     </div>
-    <div v-for="o in 4" :key="o" class="box-card_item">
+    <div v-for="item in info" :key="item.id" class="box-card_item">
       <router-link
         class="box-card_item-link clearfix"
-        to="/list">
-          <span class="sub-title fr">100 {{ subTitle }}</span>
-          <span class="title ellipsis">{{'列表内容 ' + o }}</span>
+        :to="`${getTo}${item.id}`">
+          <span class="sub-title fr">{{ item.num }} {{ subTitle }}</span>
+          <div class="title ellipsis" :title="item.title">{{ item.title }}</div>
         </router-link>
     </div>
   </el-card>
@@ -23,7 +23,8 @@ export default {
     cardType: {
       type: Number,
       default: 1
-    }
+    },
+    info: Array
   },
   data () {
     return {}
@@ -33,16 +34,28 @@ export default {
       let res
       switch (this.cardType) {
         case 1:
-          res = 'views'
-          break
-        case 2:
-          res = '篇'
-          break
         case 3:
           res = 'views'
           break
+        case 2:
         case 4:
           res = '篇'
+          break
+        default:
+          break
+      }
+      return res
+    },
+    getTo () {
+      let res
+      switch (this.cardType) {
+        case 1:
+        case 3:
+          res = '/detail/'
+          break
+        case 2:
+        case 4:
+          res = '/list/date='
           break
         default:
           break

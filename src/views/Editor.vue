@@ -9,9 +9,9 @@
     </el-form-item>
     <el-form-item label="文章性质" prop="nature">
       <el-select v-model="articleInfo.nature" placeholder="请选择文章性质">
-        <el-option label="原创" value="0"></el-option>
-        <el-option label="转载" value="1"></el-option>
-        <el-option label="翻译" value="2"></el-option>
+        <el-option label="原创" :value="0"></el-option>
+        <el-option label="转载" :value="1"></el-option>
+        <el-option label="翻译" :value="2"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="文章关键词">
@@ -53,10 +53,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import './../plugins/mavon-editor'
 import toolbars from './../plugins/mavon-editor-toolbars'
-import { apiAddArticle } from './../service/editor'
+import { apiAddArticle, apiArticleDetail, apiUpdateArticle } from './../service/article'
 
 export default {
   name: 'editor',
@@ -67,7 +67,8 @@ export default {
         name: '',
         nature: '',
         keyWords: [],
-        desc: ''
+        desc: '',
+        articleAuthorId: ''
       },
       rules: {
         name: [
@@ -87,14 +88,44 @@ export default {
   computed: {
     ...mapState([
       'userInfo'
+    ]),
+    ...mapGetters([
+      'signStatus'
     ])
   },
+  created () {
+    if (!this.signStatus) {
+      this.$router.replace('/')
+    }
+    if (this.$route.params.id) {
+      this.apiArticleDetailMethod()
+    }
+  },
   methods: {
+    async apiArticleDetailMethod () {
+      let result = await apiArticleDetail({
+        articleId: this.$route.params.id
+      })
+      if (result.isok) {
+        if (this.userInfo.id === result.data.info.articleAuthorId || this.userInfo.admin) {
+          this.articleInfo = {
+            name: result.data.info.articleTitle,
+            nature: result.data.info.articleNature,
+            keyWords: result.data.info.articleKey.split(','),
+            desc: result.data.info.articleContentMarkdown,
+            articleAuthorId: result.data.info.articleAuthorId
+          }
+        } else {
+          this.$router.replace('/')
+        }
+      }
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.$route.params.id) {
             // 更新数据
+            this.apiUpdateArticleMethod()
           } else {
             // 新建文章
             this.apiAddArticleMethod()
@@ -108,6 +139,24 @@ export default {
     async apiAddArticleMethod () {
       let result = await apiAddArticle({
         authorId: this.userInfo.id,
+        title: this.articleInfo.name,
+        nature: this.articleInfo.nature,
+        keyWords: this.articleInfo.keyWords,
+        content: this.articleInfo.desc
+      })
+      if (result.isok) {
+        let content = this.$route.params.id ? '文章更新成功' : '文章保存成功'
+        this.$alert(content, '提示', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$router.push('/')
+          }
+        })
+      }
+    },
+    async apiUpdateArticleMethod () {
+      let result = await apiUpdateArticle({
+        articleId: this.$route.params.id,
         title: this.articleInfo.name,
         nature: this.articleInfo.nature,
         keyWords: this.articleInfo.keyWords,
