@@ -5,11 +5,10 @@
         <aside-card-skeleton v-for="i in 3" :key="i"></aside-card-skeleton>
       </template>
       <template v-else>
-        <aside-card v-for="item in asideList"
-          :key="item.type"
-          :cardType="item.type"
-          :title="item.title"
-          :info="item.info"></aside-card>
+        <aside-card
+          :cardType="asideFile.type"
+          :title="asideFile.title"
+          :info="asideFile.info"></aside-card>
       </template>
     </el-aside>
     <el-main class="content">
@@ -36,7 +35,7 @@
           <list-article-skeleton></list-article-skeleton>
         </template>
         <template v-else>
-          <list-article v-for="item in articleList" :key="item.articleId" :info="item" @deleteArticle="deleteArticle"></list-article>
+          <list-article v-for="item in articleList" :key="item.articleId" :info="item" @deleteArticle="deleteArticle(item)"></list-article>
         </template>
       </div>
       <div class="content-footer">
@@ -67,6 +66,11 @@ export default {
   mixins: [asideMixin, listArticleMixin],
   data () {
     return {}
+  },
+  computed: {
+    asideFile () {
+      return this.asideList.filter(item => item.type === 4)[0]
+    }
   },
   components: {
     AsideCardSkeleton,

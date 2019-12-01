@@ -15,16 +15,18 @@
     <el-main class="content">
       <detail-skeleton v-if="!info.articleTitle"></detail-skeleton>
       <div class="detail-header" v-else>
-        <div class="title-box clearfix">
-          <el-tag class="fl">{{ articleType }}</el-tag>
-          <h2 class="title ellipsis">{{ info.articleTitle }}</h2>
-        </div>
+        <el-page-header @back="$router.go(-1)">
+          <div slot="content" class="title-box clearfix">
+            <el-tag class="fl">{{ articleType }}</el-tag>
+            <h2 class="title ellipsis" :title="info.articleTitle">{{ info.articleTitle }}</h2>
+          </div>
+        </el-page-header>
         <div class="detail-info clearfix">
           <div class="info-item">{{ $moment(info.articleUpdateTime).format('YYYY-MM-DD HH:mm:ss') || $moment(info.articleCreateTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
-          <router-link to="/about" class="info-item item-author">{{  }}</router-link>
+          <router-link :to="`/about/${authorInfo.authorId}`" class="info-item item-author">{{ authorInfo.authorName }}</router-link>
           <div class="info-item">views: {{ info.articleView }}</div>
           <el-button v-if="editAuthority" class="fr" icon="el-icon-edit" size="small" @click="toEditor">编辑</el-button>
-          <el-button class="fr" size="small">star: {{ info.articleStart }}</el-button>
+          <el-button class="fr" size="small" @click="addStar">star: {{ info.articleStart }}</el-button>
         </div>
         <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo"></prev-and-next>
       </div>
@@ -44,7 +46,7 @@ import AsideCard from './../components/AsideCard.vue'
 import prevAndNext from './../components/PrevAndNext.vue'
 import 'highlight.js/scss/default.scss'
 import 'highlight.js/styles/vs2015.css'
-import { apiArticleDetail } from './../service/article'
+import { apiArticleDetail, apiAddStar } from './../service/article'
 import asideMixin from './../mixin/asideMixin'
 
 export default {
@@ -55,6 +57,7 @@ export default {
       info: {},
       prevInfo: {},
       nextInfo: {},
+      authorInfo: {},
       getResult: false
     }
   },
@@ -106,11 +109,24 @@ export default {
         this.info = result.data.info
         this.prevInfo = result.data.prevInfo
         this.nextInfo = result.data.nextInfo
+        this.authorInfo = result.data.authorInfo
         this.getResult = true
       }
     },
     toEditor () {
       this.$router.push(`/editor/${this.$route.params.id}`)
+    },
+    async addStar () {
+      let result = await apiAddStar({
+        articleId: this.$route.params.id * 1
+      })
+      if (result.isok) {
+        this.$message({
+          message: 'Add star success',
+          type: 'success'
+        })
+        this.info.articleStart = result.data.articleStart
+      }
     }
   },
   watch: {
@@ -160,5 +176,10 @@ export default {
       }
     }
   }
+}
+.el-page-header {
+  padding-bottom: 10px;
+  line-height: 32px;
+  border-bottom: 1px solid #EBEEF5;
 }
 </style>

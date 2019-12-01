@@ -55,7 +55,7 @@ export default {
           break
         case 2:
         case 4:
-          res = '/list/date='
+          res = '/list?dateTime='
           break
         default:
           break

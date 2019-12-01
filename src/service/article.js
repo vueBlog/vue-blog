@@ -32,3 +32,17 @@ export const apiUpdateArticle = (paramsData) => {
     showLoading: true
   })
 }
+
+export const apiDeleteArticle = (paramsData) => {
+  return Vue.axios.post('/api/deleteArticle', {
+    ...paramsData,
+    showLoading: true
+  })
+}
+
+export const apiAddStar = (paramsData) => {
+  return Vue.axios.post('/api/addStar', {
+    ...paramsData,
+    showLoading: true
+  })
+}

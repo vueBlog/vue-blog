@@ -4,6 +4,7 @@
     :rules="rules"
     ref="articleInfo"
     label-width="100px">
+    <el-page-header @back="$router.go(-1)" content="编辑页面" style="padding: 0 0 20px 30px;"></el-page-header>
     <el-form-item label="文章标题" prop="name">
       <el-input v-model="articleInfo.name" placeholder="请填入文章标题"></el-input>
     </el-form-item>
