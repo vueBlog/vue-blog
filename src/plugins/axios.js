@@ -27,7 +27,6 @@ let axiosSource // 需要最新的链接的保存参数的地方，适用于搜�
 
 _axios.interceptors.request.use(
   config => {
-    console.log(config)
     // Do something before request is sent
     if (config.showLoading && !pageAxiosList.size) {
       pageLoading = Vue.prototype.$loading({
@@ -59,6 +58,7 @@ _axios.interceptors.request.use(
   error => {
     // Do something with request error
     pageLoading && pageLoading.close()
+    pageAxiosList.clear()
     Vue.prototype.$message.error({
       message: '网络出错，请重试',
       showClose: true
@@ -98,9 +98,7 @@ _axios.interceptors.response.use(
     // Do something with response error
     if (_axios.isCancel(error)) {
       // 判断是否是切换路由导致的取消，如果是的话还需要将 pageAxiosList 清空
-      for (let item of pageAxiosList.keys()) {
-        pageAxiosList.delete(item)
-      }
+      pageAxiosList.clear()
       pageLoading && pageLoading.close()
     } else if (error.message === 'alreadySent') {
       console.log('alreadySent')
@@ -110,8 +108,8 @@ _axios.interceptors.response.use(
         message: '网络出错，请重试',
         showClose: true
       })
+      pageAxiosList.clear()
     }
-
     return Promise.reject(error)
   }
 )
