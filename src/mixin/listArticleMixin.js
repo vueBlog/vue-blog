@@ -24,7 +24,8 @@ export default {
       limit: 5,
       page: 1,
       dateTime: '',
-      author: ''
+      author: '',
+      listLoad: false
     }
   },
   computed: {
@@ -56,6 +57,7 @@ export default {
       if (result.isok) {
         this.total = result.data.total
         this.articleList = result.data.list
+        this.listLoad = true
         if (this.total > 0 && !this.articleList.length && this.page > 0) {
           this.page -= 1
           this.apiArticleListMethod()
@@ -107,22 +109,27 @@ export default {
   },
   watch: {
     '$route.query.page': function (value) {
+      this.listLoad = false
       this.page = value
       this.apiArticleListMethod()
     },
     '$route.query.original': function (value) {
+      this.listLoad = false
       this.justOriginal = value
       this.apiArticleListMethod()
     },
     '$route.query.order': function (value) {
+      this.listLoad = false
       this.order = value
       this.apiArticleListMethod()
     },
     '$route.query.dateTime': function (value) {
+      this.listLoad = false
       this.dateTime = value
       this.apiArticleListMethod()
     },
     '$route.query.author': function (value) {
+      this.listLoad = false
       this.author = value
       this.apiArticleListMethod()
     }

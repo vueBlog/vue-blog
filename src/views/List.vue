@@ -1,8 +1,11 @@
 <template>
   <el-container class="list">
     <el-aside width="268px">
-      <template v-if="!asideList.length">
+      <template v-if="!asideList.length && !asideLoad">
         <aside-card-skeleton v-for="i in 3" :key="i"></aside-card-skeleton>
+      </template>
+      <template v-else-if="!asideList.length && asideLoad">
+        <div class="no-data">暂无数据</div>
       </template>
       <template v-else>
         <aside-card
@@ -27,20 +30,24 @@
         </div>
       </div>
       <div class="content-list">
-        <template v-if="!articleList.length">
+        <template v-if="!articleList.length && !listLoad">
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
+        </template>
+        <template v-else-if="!articleList.length && listLoad">
+          <div class="no-data">暂无数据</div>
         </template>
         <template v-else>
           <list-article v-for="item in articleList" :key="item.articleId" :info="item" @deleteArticle="deleteArticle(item)"></list-article>
         </template>
       </div>
-      <div class="content-footer">
+      <div class="content-footer" v-if="total">
         <el-pagination
           background
+          hide-on-single-page
           layout="prev, pager, next"
           :total="total"
           :page-size="limit"

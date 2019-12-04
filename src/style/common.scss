@@ -84,3 +84,9 @@ $split-line-color:#ddd !default;
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.no-data {
+  padding: 40px 20px;
+  color: $theme-color;
+  text-align: center;
+}

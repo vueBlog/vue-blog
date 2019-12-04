@@ -1,7 +1,10 @@
 <template>
   <el-container class="about">
     <el-aside width="268px">
-      <aside-author-skeleton v-if="!asideAuthor.length"></aside-author-skeleton>
+      <aside-author-skeleton v-if="!asideAuthor.length && !asideAuthorLoad"></aside-author-skeleton>
+      <template v-else-if="!asideAuthor.length && asideAuthorLoad">
+        <div class="no-data">暂无数据</div>
+      </template>
       <el-collapse v-else :value="activeName" accordion @change="collapseChange">
         <el-collapse-item v-for="(author, index) in asideAuthor" :key="index" :name="author.authorId">
           <template slot="title">
@@ -17,7 +20,7 @@
       </el-collapse>
     </el-aside>
     <el-main class="content">
-      <div class="author-info" v-if="currentAuthor.authorIntroduce">
+      <div class="author-info" v-if="asideAuthorLoad && currentAuthor.authorIntroduce">
         <span>作者简介：</span>{{ currentAuthor.authorIntroduce }}
       </div>
       <div class="content-header clearfix">
@@ -35,20 +38,24 @@
         </div>
       </div>
       <div class="content-list">
-        <template v-if="!articleList.length">
+        <template v-if="!articleList.length && !listLoad">
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
           <list-article-skeleton></list-article-skeleton>
+        </template>
+        <template v-else-if="!articleList.length && listLoad">
+          <div class="no-data">暂无数据</div>
         </template>
         <template v-else>
           <list-article v-for="item in articleList" :key="item.articleId" :info="item" @deleteArticle="deleteArticle(item)"></list-article>
         </template>
       </div>
-      <div class="content-footer">
+      <div class="content-footer" v-if="total">
         <el-pagination
           background
+          hide-on-single-page
           layout="prev, pager, next"
           :total="total"
           :page-size="limit"
@@ -74,7 +81,9 @@ export default {
   name: 'about',
   mixins: [listArticleMixin],
   data () {
-    return {}
+    return {
+      asideAuthorLoad: false
+    }
   },
   computed: {
     ...mapState({
@@ -99,7 +108,9 @@ export default {
   },
   created () {
     if (!this.asideAuthor.length) {
-      this.$store.dispatch('aside/apigetAsideAuthorMethod')
+      this.$store.dispatch('aside/apigetAsideAuthorMethod').then(() => {
+        this.asideAuthorLoad = true
+      })
     }
   },
   methods: {

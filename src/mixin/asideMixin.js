@@ -2,7 +2,9 @@ import { mapState } from 'vuex'
 
 export default {
   data () {
-    return {}
+    return {
+      asideLoad: false
+    }
   },
   computed: {
     ...mapState({
@@ -11,7 +13,9 @@ export default {
   },
   created () {
     if (!this.asideList.length) {
-      this.$store.dispatch('aside/apigetAsideMethod')
+      this.$store.dispatch('aside/apigetAsideMethod').then(() => {
+        this.asideLoad = true
+      })
     }
   }
 }
