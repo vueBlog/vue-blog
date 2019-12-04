@@ -52,7 +52,6 @@
         </div>
       </div>
       <aside-card-skeleton></aside-card-skeleton>
-      <aside-card-skeleton></aside-card-skeleton>
     </el-collapse-item>
   </el-collapse>
 </template>

@@ -23,7 +23,8 @@ export default {
       total: 0,
       limit: 5,
       page: 1,
-      dateTime: ''
+      dateTime: '',
+      author: ''
     }
   },
   computed: {
@@ -36,17 +37,22 @@ export default {
     this.justOriginal = this.$route.query.original ? this.$route.query.original === 'true' : false
     this.order = this.$route.query.order * 1 || 0
     this.dateTime = this.$route.query.dateTime
+    this.author = this.$route.query.author || 'admin'
     this.apiArticleListMethod()
   },
   methods: {
     async apiArticleListMethod () {
-      let result = await apiArticleList({
+      let query = {
         limit: this.limit,
         page: this.page,
         justOriginal: this.justOriginal,
         order: this.order,
         dateTime: this.dateTime
-      })
+      }
+      if (this.$route.name === 'about') {
+        query.author = this.author
+      }
+      let result = await apiArticleList(query)
       if (result.isok) {
         this.total = result.data.total
         this.articleList = result.data.list
@@ -114,6 +120,10 @@ export default {
     },
     '$route.query.dateTime': function (value) {
       this.dateTime = value
+      this.apiArticleListMethod()
+    },
+    '$route.query.author': function (value) {
+      this.author = value
       this.apiArticleListMethod()
     }
   }
