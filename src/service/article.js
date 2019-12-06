@@ -12,8 +12,7 @@ export const apiArticleList = (paramsData) => {
   return Vue.axios.get('/api/articleList', {
     params: {
       ...paramsData
-    },
-    showLoading: true
+    }
   })
 }
 

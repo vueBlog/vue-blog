@@ -44,6 +44,7 @@ _axios.interceptors.request.use(
       config.cancelToken = axiosSource.token
     } else if (config.needAll) {
       // console.log("needAll");
+      config.cancelToken = store.state.source.token
     } else {
       // 检查 pageAxiosList 里面是否有已经发送相同接口 url ，如果有的话直接取消发送
       if (pageAxiosList.has(config.url)) {
