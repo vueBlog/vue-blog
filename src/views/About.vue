@@ -20,7 +20,7 @@
       </el-collapse>
     </el-aside>
     <el-main class="content">
-      <div class="author-info" v-if="asideAuthorLoad && currentAuthor.authorIntroduce">
+      <div class="author-info" v-if="currentAuthor.authorIntroduce">
         <span>作者简介：</span>{{ currentAuthor.authorIntroduce }}
       </div>
       <div class="content-header clearfix">
@@ -77,6 +77,7 @@ import ListArticle from './../components/ListArticle.vue'
 import listArticleMixin from './../mixin/listArticleMixin'
 import { mapState, mapGetters } from 'vuex'
 
+const defaultTitle = '作者'
 export default {
   name: 'about',
   mixins: [listArticleMixin],
@@ -96,7 +97,26 @@ export default {
       return this.$route.query.author * 1 || this.firstAuthor
     },
     currentAuthor () {
-      return this.asideAuthor.filter(item => item.authorId === this.activeName)[0]
+      return this.asideAuthorLoad ? this.asideAuthor.filter(item => item.authorId === this.activeName)[0] : {}
+    },
+    title () {
+      return this.asideAuthorLoad ? this.currentAuthor.authorName ? `${this.currentAuthor.authorName}-${defaultTitle}` : `${defaultTitle}` : `${defaultTitle}`
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
     }
   },
   components: {

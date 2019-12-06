@@ -49,6 +49,7 @@ import 'highlight.js/styles/vs2015.css'
 import { apiArticleDetail, apiAddStar } from './../service/article'
 import asideMixin from './../mixin/asideMixin'
 
+const defaultTitle = '文章详情'
 export default {
   name: 'detail',
   mixins: [asideMixin],
@@ -94,6 +95,25 @@ export default {
           break
       }
       return result
+    },
+    title () {
+      return this.info.articleTitle ? `${this.info.articleTitle}-${defaultTitle}` : `${defaultTitle}`
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
     }
   },
   created () {

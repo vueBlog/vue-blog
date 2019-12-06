@@ -27,6 +27,27 @@ export default {
       activeName: 'signIn'
     }
   },
+  computed: {
+    title () {
+      return this.activeName === 'signIn' ? `登录` : `注册`
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
+    }
+  },
   methods: {
     handleClick (tab, event) {
       // console.log(tab, event)

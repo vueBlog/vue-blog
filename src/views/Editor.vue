@@ -59,6 +59,7 @@ import './../plugins/mavon-editor'
 import toolbars from './../plugins/mavon-editor-toolbars'
 import { apiAddArticle, apiArticleDetail, apiUpdateArticle } from './../service/article'
 
+const defaultTitle = '写文章'
 export default {
   name: 'editor',
   data () {
@@ -92,7 +93,26 @@ export default {
     ]),
     ...mapGetters([
       'signStatus'
-    ])
+    ]),
+    title () {
+      return this.$route.params.id ? this.articleInfo.name ? `编辑文章-${this.articleInfo.name}` : '编辑文章' : `${defaultTitle}`
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
+    }
   },
   created () {
     if (!this.signStatus) {

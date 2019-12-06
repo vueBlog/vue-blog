@@ -75,6 +75,24 @@ export default {
   data () {
     return {}
   },
+  computed: {
+    metaKeywords () {
+      return `首页 | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `首页 | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: '首页',
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
+    }
+  },
   components: {
     AsideCardSkeleton,
     ListArticleSkeleton,

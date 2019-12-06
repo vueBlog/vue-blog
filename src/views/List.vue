@@ -68,6 +68,7 @@ import ListArticle from './../components/ListArticle.vue'
 import asideMixin from './../mixin/asideMixin'
 import listArticleMixin from './../mixin/listArticleMixin'
 
+const defaultTitle = '列表'
 export default {
   name: 'list',
   mixins: [asideMixin, listArticleMixin],
@@ -77,6 +78,25 @@ export default {
   computed: {
     asideFile () {
       return this.asideList.filter(item => item.type === 4)[0]
+    },
+    title () {
+      return this.$route.query.dateTime ? `${this.$route.query.dateTime}-${defaultTitle}` : `${defaultTitle}`
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
     }
   },
   components: {
