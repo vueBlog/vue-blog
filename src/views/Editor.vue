@@ -44,7 +44,9 @@
         fontSize="14px"
         :boxShadow="false"
         :autofocus="false"
-        :toolbars="toolbars">
+        :toolbars="toolbars"
+        @imgAdd="imgAdd"
+        @imgDel="imgDel">
       </mavon-editor>
     </el-form-item>
     <el-form-item>
@@ -58,6 +60,7 @@ import { mapState, mapGetters } from 'vuex'
 import './../plugins/mavon-editor'
 import toolbars from './../plugins/mavon-editor-toolbars'
 import { apiAddArticle, apiArticleDetail, apiUpdateArticle } from './../service/article'
+import '@/plugins/axios'
 
 const defaultTitle = '写文章'
 export default {
@@ -212,6 +215,26 @@ export default {
       }
       this.inputVisible = false
       this.inputValue = ''
+    },
+    imgAdd (pos, $file) {
+      let formdata = new FormData()
+      formdata.append('articleId', this.$route.params.id)
+      formdata.append('image', $file)
+      this.axios({
+        url: `/api/images/add`,
+        method: 'post',
+        data: formdata,
+        headers: { 'Content-Type': 'multipart/form-data' },
+        showLoading: true,
+        needAll: true
+      }).then(res => {
+        this.$refs.md.$img2Url(pos, `${process.env.VUE_APP_host}/${res.data.src}`)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    imgDel (pos) {
+      console.log(pos)
     }
   }
 }

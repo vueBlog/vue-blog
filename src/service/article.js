@@ -45,3 +45,10 @@ export const apiAddStar = (paramsData) => {
     showLoading: true
   })
 }
+
+// export const apiDeleteImage = (paramsData) => {
+//   return Vue.axios.post('/api/images/delete', {
+//     ...paramsData,
+//     showLoading: true
+//   })
+// }
