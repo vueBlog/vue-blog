@@ -14,7 +14,15 @@
         size="medium"
         prefix-icon="el-icon-search"
         @select="searchHandleSelect"
-      ></el-autocomplete>
+        popper-class="autocomplete-popper"
+      >
+        <template slot-scope="{ item }">
+          <div class="option-item-box">
+            <div class="name ellipsis">{{ getSearchName(item.type) }}</div>
+            <div class="content ellipsis">{{ item.articleTitle }}</div>
+          </div>
+        </template>
+      </el-autocomplete>
       <el-menu
         class="header-nav fl"
         :default-active="activeIndex"
@@ -56,6 +64,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import { apiSearch } from './../service/index'
 
 export default {
   name: 'PageHeader',
@@ -79,15 +88,7 @@ export default {
         }
       ],
       searchValue: '',
-      timeout: null,
-      restaurants: [
-        { value: '三全鲜食（北新泾店）', 'address': '长宁区新渔路144号' },
-        { value: 'Hot honey 首尔炸鸡（仙霞路）', 'address': '上海市长宁区淞虹路661号' },
-        { value: '新旺角茶餐厅', 'address': '上海市普陀区真北路988号创邑金沙谷6号楼113' },
-        { value: '泷千家(天山西路店)', 'address': '天山西路438号' },
-        { value: '胖仙女纸杯蛋糕（上海凌空店）', 'address': '上海市长宁区金钟路968号1幢18号楼一层商铺18-101' },
-        { value: '贡茶', 'address': '上海市长宁区金钟路633号' }
-      ]
+      timeout: null
     }
   },
   computed: {
@@ -118,20 +119,48 @@ export default {
       return res
     }
   },
-  created () {
-
-  },
+  created () {},
   methods: {
     searchHandleSelect (key, keyPath) {
       console.log(key, keyPath)
     },
-    querySearchAsync (queryString, cb) {
-      let restaurants = this.restaurants
-      let results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants
-      this.timeout && clearTimeout(this.timeout)
-      this.timeout = setTimeout(() => {
-        cb(results)
-      }, 3000 * Math.random())
+    getSearchName (type) {
+      let res
+      switch (type) {
+        case 0:
+          res = '文章标题'
+          break
+        case 1:
+          res = '一级标题'
+          break
+        case 2:
+          res = '二级标题'
+          break
+        case 3:
+          res = '三级标题'
+          break
+        case 4:
+          res = '四级标题'
+          break
+        case 5:
+          res = '五级标题'
+          break
+        case 6:
+          res = '六级标题'
+          break
+        default:
+          break
+      }
+      return res
+    },
+    async querySearchAsync (queryString, cb) {
+      if (!queryString.length) return
+      let result = await apiSearch({
+        queryString
+      })
+      if (result.isok) {
+        cb(result.data.searchList)
+      }
     },
     createStateFilter (queryString) {
       return (state) => {
@@ -151,4 +180,40 @@ export default {
 
 <style scoped lang="scss">
 @import './../style/components/page-header.scss';
+</style>
+
+<style lang="scss">
+$border-color:#e6e6e6 !default;
+.autocomplete-popper {
+  width: 600px!important;
+  .el-autocomplete-suggestion__wrap {
+    padding: 10px;
+  }
+  li {
+    padding: 0 10px;
+    border-left: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    &:nth-child(1) {
+      border-top: 1px solid $border-color;
+    }
+    .option-item-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      .name {
+        flex: 0 0 15%;
+        max-width: 15%;
+      }
+      .content {
+        box-sizing: border-box;
+        padding-left: 10px;
+        flex: 0 0 85%;
+        max-width: 85%;
+        border-left: 1px solid $border-color;
+      }
+    }
+  }
+}
 </style>
