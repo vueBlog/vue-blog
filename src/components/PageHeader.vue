@@ -121,8 +121,12 @@ export default {
   },
   created () {},
   methods: {
-    searchHandleSelect (key, keyPath) {
-      console.log(key, keyPath)
+    searchHandleSelect (key) {
+      if ([0, 7].includes(key.type)) {
+        this.$router.push(`/detail/${key.articleId}`)
+      } else if ([1, 2, 3, 4, 5, 6].includes(key.type)) {
+        this.$router.push(`/detail/${key.articleId}#${key[`h${key.type}`]}`)
+      }
     },
     getSearchName (type) {
       let res
@@ -147,6 +151,9 @@ export default {
           break
         case 6:
           res = '六级标题'
+          break
+        case 7:
+          res = '关键词'
           break
         default:
           break
