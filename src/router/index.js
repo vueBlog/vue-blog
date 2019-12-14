@@ -8,6 +8,10 @@ const PageAbout = () => import(/* webpackChunkName: "group-about" */ './../views
 const PageSignIn = () => import(/* webpackChunkName: "group-signIn" */ './../views/SignIn.vue')
 const PageDetail = () => import(/* webpackChunkName: "group-detail" */ './../views/Detail.vue')
 const PageEditor = () => import(/* webpackChunkName: "group-editor" */ './../views/Editor.vue')
+const PageAdmin = () => import(/* webpackChunkName: "group-admin" */ './../views/Admin.vue')
+const PageAdminUser = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminUser.vue')
+const PageAdminViews = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminViews.vue')
+const PageAdminAuthority = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminAuthority.vue')
 
 Vue.use(VueRouter)
 Vue.use(Meta)
@@ -42,6 +46,28 @@ const routes = [
     path: '/editor/:id?',
     name: 'editor',
     component: PageEditor
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: PageAdmin,
+    children: [
+      {
+        path: 'views',
+        name: 'adminViews',
+        component: PageAdminViews
+      },
+      {
+        path: 'authority',
+        name: 'adminAuthority',
+        component: PageAdminAuthority
+      },
+      {
+        path: ':id',
+        name: 'adminUser',
+        component: PageAdminUser
+      }
+    ]
   }
 ]
 

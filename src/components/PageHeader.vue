@@ -52,8 +52,8 @@
               </div>
             </template>
             <el-menu-item index="6-1" :route="`/admin/${userInfo.id}`">个人中心</el-menu-item>
-            <el-menu-item index="6-2" route="/views">访问量</el-menu-item>
-            <el-menu-item index="6-3" route="/authority" v-if="userInfo.admin">授权</el-menu-item>
+            <el-menu-item index="6-2" route="/admin/views">访问量</el-menu-item>
+            <el-menu-item index="6-3" route="/admin/authority" v-if="userInfo.admin">授权</el-menu-item>
             <el-menu-item index="6-4" route="/signIn">退出</el-menu-item>
           </el-submenu>
         </template>
@@ -101,20 +101,37 @@ export default {
     ]),
     activeIndex () {
       let res
-      for (let i = 0, len = this.menuObj.length; i < len; i++) {
-        if (this.menuObj[i].route === this.$route.path) {
-          res = this.menuObj[i].index
+      switch (this.$route.name) {
+        case 'home':
+          res = '1'
           break
-        }
-      }
-      if (!res) {
-        if (!this.signStatus) {
-          if (this.$route.path === '/signIn') res = '4'
-        } else {
-          if (this.$route.path === '/editor') res = '5'
-          if (this.$route.path === '/admin') res = '6'
-        }
-        if (this.$route.path === '/detail') res = ''
+        case 'list':
+          res = '2'
+          break
+        case 'about':
+          res = '3'
+          break
+        case 'signIn':
+          res = '4'
+          break
+        case 'detail':
+          res = '5'
+          break
+        case 'admin':
+          res = '6'
+          break
+        case 'adminUser':
+          res = '6-1'
+          break
+        case 'adminViews':
+          res = '6-2'
+          break
+        case 'adminAuthority':
+          res = '6-3'
+          break
+        default:
+          res = '1'
+          break
       }
       return res
     }
