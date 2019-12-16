@@ -1,57 +1,60 @@
 <template>
   <div class="user-box">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="userInfo" :rules="rules" ref="userInfo" label-width="100px">
       <el-form-item label="用户头像">
         <el-upload
-          action="https://jsonplaceholder.typicode.com/posts/"
+          ref="headerUpload"
+          action="/api/addUserHeader"
+          accept="image/png, image/jpeg"
           list-type="picture-card"
+          :file-list="fileList"
+          :data="{ id: $route.params.id }"
           :before-upload="beforeAvatarUpload"
-          :on-preview="handlePictureCardPreview"
-          :on-remove="handleRemove">
+          :on-success="avatarUploadSuccess">
           <i class="el-icon-plus"></i>
-          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过2M</div>
         </el-upload>
-        <el-dialog :visible.sync="dialogVisible">
-          <img width="100%" :src="dialogImageUrl" alt="">
-        </el-dialog>
       </el-form-item>
       <el-form-item label="用户名称" prop="name">
         <el-input
-          v-model="ruleForm.name"
+          v-model="userInfo.name"
           placeholder="请输入用户名称"
-          @keyup.enter.native="submitForm('ruleForm')"></el-input>
+          @keyup.enter.native="submitForm('userInfo')"></el-input>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input
-          v-model="ruleForm.email"
+          v-model="userInfo.email"
           placeholder="请输入邮箱"
-          @keyup.enter.native="submitForm('ruleForm')"></el-input>
+          @keyup.enter.native="submitForm('userInfo')"></el-input>
       </el-form-item>
       <el-form-item label="作者简介" prop="introduce">
         <el-input type="textarea"
-          v-model="ruleForm.introduce"
+          v-model="userInfo.introduce"
           placeholder="请输入作者简介"
-          @keyup.enter.native="submitForm('ruleForm')"></el-input>
+          @keyup.enter.native="submitForm('userInfo')"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+        <el-button type="primary" @click="submitForm('userInfo')">保存</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import { apiSelectUser } from './../service/admin'
+
 export default {
   name: 'AdminUser',
   data () {
     return {
-      dialogImageUrl: '',
-      dialogVisible: false,
-      ruleForm: {
+      headimg: '',
+      userInfo: {
+        headimg: '',
         name: '',
         email: '',
         introduce: ''
       },
+      fileList: [],
       rules: {
         name: [
           { required: true, message: '请输入用户名称', trigger: 'blur' },
@@ -67,7 +70,45 @@ export default {
       }
     }
   },
+  computed: {
+    title () {
+      return this.userInfo.name ? `${this.userInfo.name}-个人中心` : '个人中心'
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
+    }
+  },
+  created () {
+    this.apiSelectUserMethod()
+  },
   methods: {
+    async apiSelectUserMethod () {
+      let result = await apiSelectUser({
+        authorId: this.$route.params.id
+      })
+      if (result.isok) {
+        this.userInfo.name = result.data.userInfo.authorName
+        this.userInfo.email = result.data.userInfo.authorEmail
+        this.userInfo.introduce = result.data.userInfo.authorIntroduce
+        if (result.data.userInfo.authorHeadimg) {
+          this.userInfo.headimg = `${process.env.VUE_APP_host}/${result.data.userInfo.authorHeadimg}`
+          this.fileList = [{ url: this.userInfo.headimg }]
+        }
+      }
+    },
     beforeAvatarUpload (file) {
       const isJPG = file.type === 'image/jpeg'
       const isPNG = file.type === 'image/png'
@@ -79,14 +120,10 @@ export default {
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      return isJPG && isPNG && isLt2M
+      return (isJPG || isPNG) && isLt2M
     },
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePictureCardPreview (file) {
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
+    avatarUploadSuccess (result) {
+      if (result.isok) this.fileList = [{ url: `${process.env.VUE_APP_host}/${result.data.src}` }]
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
