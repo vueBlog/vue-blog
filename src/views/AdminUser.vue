@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { apiSelectUser } from './../service/admin'
+import { apiSelectUser, apiUpdateUser } from './../service/admin'
 
 export default {
   name: 'AdminUser',
@@ -128,15 +128,26 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.apiUpdateUserMethod()
         } else {
           console.log('error submit!!')
           return false
         }
       })
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    async apiUpdateUserMethod () {
+      let result = await apiUpdateUser({
+        id: this.$route.params.id,
+        name: this.userInfo.name,
+        email: this.userInfo.email,
+        introduce: this.userInfo.introduce
+      })
+      if (result.isok) {
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        })
+      }
     }
   }
 }

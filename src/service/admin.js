@@ -16,3 +16,10 @@ export const apiSelectUser = (paramsData) => {
     }
   })
 }
+
+export const apiUpdateUser = (paramsData) => {
+  return Vue.axios.post('/api/adminUser/update', {
+    ...paramsData,
+    showLoading: true
+  })
+}
