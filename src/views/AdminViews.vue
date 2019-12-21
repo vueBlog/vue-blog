@@ -3,19 +3,23 @@
 </template>
 
 <script>
+import { apiSelectViews } from './../service/admin'
 const echarts = require('echarts')
 
 export default {
   name: 'AdminViews',
   data () {
-    return {}
+    return {
+      monthStar: '',
+      monthEnd: '',
+      myChart: null
+    }
   },
   mounted () {
-    const myChart = echarts.init(document.getElementById('echart'))
-
+    this.myChart = echarts.init(document.getElementById('echart'))
     const option = {
       title: {
-        text: '堆叠区域图'
+        text: '本月访问量'
       },
       tooltip: {
         trigger: 'axis',
@@ -25,9 +29,6 @@ export default {
             backgroundColor: '#6a7985'
           }
         }
-      },
-      legend: {
-        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
       },
       toolbox: {
         feature: {
@@ -44,7 +45,7 @@ export default {
         {
           type: 'category',
           boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          data: []
         }
       ],
       yAxis: [
@@ -54,50 +55,54 @@ export default {
       ],
       series: [
         {
-          name: '邮件营销',
+          name: '访问量',
           type: 'line',
           stack: '总量',
           areaStyle: {},
-          data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-          name: '联盟广告',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {},
-          data: [220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-          name: '视频广告',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {},
-          data: [150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-          name: '直接访问',
-          type: 'line',
-          stack: '总量',
-          areaStyle: { normal: {} },
-          data: [320, 332, 301, 334, 390, 330, 320]
-        },
-        {
-          name: '搜索引擎',
-          type: 'line',
-          stack: '总量',
-          label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
-          },
-          areaStyle: { normal: {} },
-          data: [820, 932, 901, 934, 1290, 1330, 1320]
+          data: []
         }
       ]
     }
-
-    myChart.setOption(option)
+    this.myChart.setOption(option)
+    this.myChart.showLoading()
+    this.monthStar = this.$moment().month(this.$moment().month()).startOf('month').format('YYYY-MM-DD')
+    this.monthEnd = this.$moment().month(this.$moment().month()).endOf('month').format('YYYY-MM-DD')
+    this.apiSelectViewsMethod()
+  },
+  methods: {
+    async apiSelectViewsMethod () {
+      let result = await apiSelectViews({
+        start: this.monthStar,
+        end: this.monthEnd
+      })
+      if (result.isok) {
+        this.myChart.hideLoading()
+        const xData = []
+        const seriesData = []
+        result.data.map(item => {
+          xData.push(item.time)
+          seriesData.push(item.views)
+        })
+        this.myChart.setOption({
+          xAxis: [
+            {
+              type: 'category',
+              boundaryGap: false,
+              data: xData
+            }
+          ],
+          series: [
+            {
+              name: '访问量',
+              type: 'line',
+              stack: '总量',
+              areaStyle: {},
+              data: seriesData
+            }
+          ]
+        })
+      }
+    }
   }
 }
 </script>
