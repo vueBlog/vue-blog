@@ -31,6 +31,10 @@ router.beforeEach((to, from, next) => {
   const CancelToken = Vue.axios.CancelToken
   store.state.source.cancel && store.state.source.cancel()
   store.commit('setSource', CancelToken.source())
+  Vue.axios.post('/api/adminviews/add', {
+    from: from.path,
+    to: to.path
+  })
   next()
 })
 

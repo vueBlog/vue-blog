@@ -23,3 +23,18 @@ export const apiUpdateUser = (paramsData) => {
     showLoading: true
   })
 }
+
+export const apiAddViews = (paramsData) => {
+  return Vue.axios.post('/api/adminviews/add', {
+    ...paramsData
+  })
+}
+
+export const apiSelectViews = (paramsData) => {
+  return Vue.axios.get('/api/adminviews/select', {
+    params: {
+      ...paramsData,
+      showLoading: true
+    }
+  })
+}
