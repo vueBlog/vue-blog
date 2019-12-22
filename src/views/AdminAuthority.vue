@@ -3,78 +3,104 @@
     :data="tableData"
     style="width: 100%">
     <el-table-column
-      label="日期"
+      prop="authorEmail"
+      label="邮箱"
       width="180">
-      <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.date }}</span>
-      </template>
     </el-table-column>
     <el-table-column
+      prop="authorName"
       label="姓名"
       width="250">
-      <template slot-scope="scope">
-        <el-popover trigger="hover" placement="top">
-          <p>姓名: {{ scope.row.name }}</p>
-          <p>住址: {{ scope.row.address }}</p>
-          <div slot="reference" class="name-wrapper">
-            <el-tag size="medium">{{ scope.row.name }}</el-tag>
-          </div>
-        </el-popover>
-      </template>
     </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
-        <el-button
-          size="mini"
-          type="primary"
-          @click="handleGroup(scope.$index, scope.row)">成员</el-button>
-        <el-button
-          size="mini"
-          @click="handleBrowse(scope.$index, scope.row)">用户</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">拒绝</el-button>
+        <template v-if="scope.row.authority !== 2">
+          {{ getType(scope.row.authority) }}
+        </template>
+        <template v-else>
+          <el-button
+            size="mini"
+            type="primary"
+            @click="handleGroup(scope.$index, scope.row)">成员</el-button>
+          <el-button
+            size="mini"
+            @click="handleBrowse(scope.$index, scope.row)">用户</el-button>
+          <!-- <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)">拒绝</el-button> -->
+        </template>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { apiSelectAuthority, apiUpdateAuthority } from './../service/admin'
+
 export default {
   name: 'AdminAuthority',
   data () {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData: []
     }
   },
+  computed: {
+    ...mapState({
+      userInfo: 'userInfo'
+    })
+  },
+  created () {
+    this.apiSelectAuthorityMethod()
+  },
   methods: {
+    getType (key) {
+      let res
+      switch (key) {
+        case 0:
+          res = '管理员'
+          break
+        case 1:
+          res = '成员'
+          break
+        case 2:
+          res = '注册待通过'
+          break
+        case 3:
+          res = '浏览用户'
+          break
+        default:
+          break
+      }
+      return res
+    },
+    async apiSelectAuthorityMethod () {
+      let result = await apiSelectAuthority({
+        id: this.userInfo.id
+      })
+      if (result.isok) {
+        this.tableData = result.data
+      }
+    },
+    async apiUpdateAuthorityMethod (index, row, val) {
+      let result = await apiUpdateAuthority({
+        authority: val,
+        id: row.authorId
+      })
+      if (result.isok) {
+        this.tableData[index].authority = val
+      }
+    },
     handleGroup (index, row) {
-      console.log(index, row)
+      this.apiUpdateAuthorityMethod(index, row, 1)
     },
     handleBrowse (index, row) {
-      console.log(index, row)
-    },
-    handleDelete (index, row) {
-      console.log(index, row)
+      this.apiUpdateAuthorityMethod(index, row, 3)
     }
+    // handleDelete (index, row) {
+    //   console.log(index, row)
+    // }
   }
 }
 </script>

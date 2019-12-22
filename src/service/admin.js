@@ -38,3 +38,18 @@ export const apiSelectViews = (paramsData) => {
     }
   })
 }
+
+export const apiSelectAuthority = (paramsData) => {
+  return Vue.axios.get('/api/adminAuthority/select', {
+    params: {
+      ...paramsData,
+      showLoading: true
+    }
+  })
+}
+
+export const apiUpdateAuthority = (paramsData) => {
+  return Vue.axios.post('/api/adminAuthority/update', {
+    ...paramsData
+  })
+}
