@@ -1,9 +1,9 @@
 <template>
   <div class="header clearfix">
-    <div class="logo-box fl">
+    <router-link to="/" class="logo-box fl">
       <img class="logo" src="./../assets/logo.jpg" alt="logo">
       <div class="logo-text">{{ logoText }}</div>
-    </div>
+    </router-link>
     <div class="fr clearfix">
       <el-autocomplete
         class="search-box fl"

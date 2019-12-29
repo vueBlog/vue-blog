@@ -8,6 +8,7 @@
   .logo-box {
     width: 200px;
     height: $header-height;
+    text-decoration: none;
     display: flex;
     align-items: center;
 
@@ -20,6 +21,7 @@
 
     .logo-text {
       flex: 1;
+      color: $theme-color;
       font-size: 18px;
       font-weight: bold;
     }

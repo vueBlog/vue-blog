@@ -8,7 +8,7 @@
       <el-collapse v-else :value="activeName" accordion @change="collapseChange">
         <el-collapse-item v-for="(author, index) in asideAuthor" :key="index" :name="author.authorId">
           <template slot="title">
-            <el-avatar class="author-img" size="small" :src="author.authorHeadimg || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"></el-avatar>
+            <el-avatar class="author-img" size="small" :src="getAuthorImg(author)"></el-avatar>
             <span class="author-name ellipsis">{{ author.authorName }}</span>
           </template>
           <aside-author :info="author"></aside-author>
@@ -142,6 +142,9 @@ export default {
           author: value
         }
       })
+    },
+    getAuthorImg (author) {
+      return author.authorHeadimg ? `${process.env.VUE_APP_host}/${author.authorHeadimg}` : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     }
   }
 }
