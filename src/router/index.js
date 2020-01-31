@@ -72,11 +72,16 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: '/vue-blog/',
+  // 本地开始时注释
+  // mode: 'history',
+  // base: '/vue-blog/',
   routes,
   scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    } else if (savedPosition) {
       return savedPosition
     } else {
       return {
