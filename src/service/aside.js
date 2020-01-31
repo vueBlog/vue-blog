@@ -2,7 +2,7 @@ import Vue from 'vue'
 import '@/plugins/axios'
 
 export const apigetAside = (paramsData) => {
-  return Vue.axios.get('/api/getAside', {
+  return Vue.axios.get('/getAside', {
     params: {
       ...paramsData
     }
@@ -10,7 +10,7 @@ export const apigetAside = (paramsData) => {
 }
 
 export const apigetAsideAuthor = (paramsData) => {
-  return Vue.axios.get('/api/getAsideAuthor', {
+  return Vue.axios.get('/getAsideAuthor', {
     params: {
       ...paramsData
     }

@@ -2,14 +2,14 @@ import Vue from 'vue'
 import '@/plugins/axios'
 
 export const apiAddUserHeader = (paramsData) => {
-  return Vue.axios.post('/api/addUserHeader', {
+  return Vue.axios.post('/addUserHeader', {
     ...paramsData,
     showLoading: true
   })
 }
 
 export const apiSelectUser = (paramsData) => {
-  return Vue.axios.get('/api/adminUser/select', {
+  return Vue.axios.get('/adminUser/select', {
     params: {
       ...paramsData,
       showLoading: true
@@ -18,20 +18,20 @@ export const apiSelectUser = (paramsData) => {
 }
 
 export const apiUpdateUser = (paramsData) => {
-  return Vue.axios.post('/api/adminUser/update', {
+  return Vue.axios.post('/adminUser/update', {
     ...paramsData,
     showLoading: true
   })
 }
 
 export const apiAddViews = (paramsData) => {
-  return Vue.axios.post('/api/adminviews/add', {
+  return Vue.axios.post('/adminviews/add', {
     ...paramsData
   })
 }
 
 export const apiSelectViews = (paramsData) => {
-  return Vue.axios.get('/api/adminviews/select', {
+  return Vue.axios.get('/adminviews/select', {
     params: {
       ...paramsData,
       showLoading: true
@@ -40,7 +40,7 @@ export const apiSelectViews = (paramsData) => {
 }
 
 export const apiSelectAuthority = (paramsData) => {
-  return Vue.axios.get('/api/adminAuthority/select', {
+  return Vue.axios.get('/adminAuthority/select', {
     params: {
       ...paramsData,
       showLoading: true
@@ -49,7 +49,7 @@ export const apiSelectAuthority = (paramsData) => {
 }
 
 export const apiUpdateAuthority = (paramsData) => {
-  return Vue.axios.post('/api/adminAuthority/update', {
+  return Vue.axios.post('/adminAuthority/update', {
     ...paramsData
   })
 }

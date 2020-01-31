@@ -4,7 +4,7 @@
       <el-form-item label="用户头像">
         <el-upload
           ref="headerUpload"
-          action="/vue-blog/api/addUserHeader"
+          action="/api/vue-blog/addUserHeader"
           accept="image/png, image/jpeg"
           list-type="picture-card"
           :file-list="fileList"

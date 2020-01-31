@@ -11,7 +11,7 @@ import store from './../store'
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 let config = {
-  baseURL: process.env.VUE_APP_pathname
+  baseURL: `/api${process.env.VUE_APP_pathname}`
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 }
