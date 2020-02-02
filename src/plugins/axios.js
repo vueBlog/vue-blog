@@ -35,7 +35,6 @@ _axios.interceptors.request.use(
         text: '加载中...'
       })
     }
-
     if (config.needLast) {
       // 请求链接需要最新的
       const CancelToken = Vue.axios.CancelToken
@@ -73,7 +72,7 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   response => {
     // Do something with response data
-    let nowUrl = response.config.url
+    let nowUrl = response.config.url.replace('/api/vue-blog', '')
     if (pageAxiosList.has(nowUrl)) {
       pageAxiosList.delete(nowUrl)
     }

@@ -11,8 +11,8 @@ import './plugins/element.js'
 import moment from 'moment'
 import './style/common.scss'
 
-console.log(process.env.VUE_APP_host)
-console.log(process.env.VUE_APP_pathname)
+// console.log(process.env.VUE_APP_host)
+// console.log(process.env.VUE_APP_pathname)
 
 const options = {
   color: '#409EFF'

@@ -195,7 +195,6 @@ export default {
       }
     },
     menuHandleSelect (item) {
-      console.log(item)
       if (item === '6-4') {
         this.$store.commit('signIn/setToken', '')
         this.$cookie.remove('vueBlogToken', { path: '' })
