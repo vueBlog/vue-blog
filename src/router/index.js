@@ -72,8 +72,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  // 本地开始时注释
-  // mode: 'history',
+  mode: process.env.NODE_ENV === 'development' ? 'hash' : 'history',
   base: '/vue-blog/',
   routes,
   scrollBehavior (to, from, savedPosition) {
