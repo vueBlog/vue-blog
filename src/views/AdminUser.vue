@@ -123,7 +123,12 @@ export default {
       return (isJPG || isPNG) && isLt2M
     },
     avatarUploadSuccess (result) {
-      if (result.isok) this.fileList = [{ url: `${process.env.VUE_APP_host}/${result.data.src}` }]
+      if (result.isok) {
+        this.fileList = [{ url: `${process.env.VUE_APP_host}/${result.data.src}` }]
+        this.$nextTick(() => {
+          this.$store.dispatch('tokenGetUserInfo')
+        })
+      }
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -146,6 +151,9 @@ export default {
         this.$message({
           message: '保存成功',
           type: 'success'
+        })
+        this.$nextTick(() => {
+          this.$store.dispatch('tokenGetUserInfo')
         })
       }
     }

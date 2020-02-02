@@ -131,6 +131,8 @@ export default {
       this.$store.dispatch('aside/apigetAsideAuthorMethod').then(() => {
         this.asideAuthorLoad = true
       })
+    } else {
+      this.asideAuthorLoad = true
     }
   },
   methods: {
