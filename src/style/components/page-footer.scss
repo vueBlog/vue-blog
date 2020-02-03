@@ -11,13 +11,13 @@
   .link-box {
     color: $--color-info;
     font-size: 14px;
-    .link-item {
-      margin-left: 10px;
-      text-decoration: none;
-      color: $--color-info;
-      &:hover {
-        color: $--color-primary;
-      }
+  }
+  .link-item {
+    margin-left: 10px;
+    text-decoration: none;
+    color: $--color-info;
+    &:hover {
+      color: $--color-primary;
     }
   }
   .website-information {

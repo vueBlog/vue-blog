@@ -2,17 +2,16 @@
   <div class="footer">
     <div class="link-box">
       <span>友情链接：</span>
-      <a class="link-item" href="https://github.com/fxss5201" target="_blank">Github</a>
-      <a class="link-item" href="https://blog.csdn.net/fxss5201" target="_blank">CSDN</a>
+      <a v-for="item in friendLink" :key="item.text" class="link-item" :href="item.link" target="_blank">{{ item.text }}</a>
     </div>
     <div class="verbum-sapienti">
       <span>{{ logoText }}：</span>
       <span>{{ logoDescription }}</span>
     </div>
     <div class="website-information">
-      <span>Powered by ©2019</span>
-      <router-link to="/about" class="author">樊小书生</router-link>
-      <span>***备*********号</span>
+      <span>Powered by <a class="link-item" href="https://github.com/fxss5201" target="_blank" style="margin: 0 5px;">fxss5201</a> © 2019-{{ curYear }}</span>
+      <router-link to="/about" class="author">{{ author }}</router-link>
+      <span>{{ record }}</span>
     </div>
   </div>
 </template>
@@ -24,7 +23,10 @@ export default {
   name: 'pageFooter',
   data () {
     return {
-
+      friendLink: JSON.parse(process.env.VUE_APP_friendLink),
+      author: process.env.VUE_APP_author,
+      record: process.env.VUE_APP_record,
+      curYear: ''
     }
   },
   computed: {
@@ -32,6 +34,9 @@ export default {
       'logoText',
       'logoDescription'
     ])
+  },
+  created () {
+    this.curYear = new Date().getFullYear()
   }
 }
 </script>
