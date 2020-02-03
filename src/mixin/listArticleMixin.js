@@ -75,6 +75,8 @@ export default {
           type: 'success'
         })
         this.apiArticleListMethod()
+        this.$store.dispatch('aside/apigetAsideMethod')
+        this.$store.dispatch('aside/apigetAsideAuthorMethod')
       }
     },
     handleCurrentChange (val) {

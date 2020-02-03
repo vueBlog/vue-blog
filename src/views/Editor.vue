@@ -169,6 +169,8 @@ export default {
         content: this.articleInfo.desc
       })
       if (result.isok) {
+        this.$store.dispatch('aside/apigetAsideMethod')
+        this.$store.dispatch('aside/apigetAsideAuthorMethod')
         let content = this.$route.params.id ? '文章更新成功' : '文章保存成功'
         this.$alert(content, '提示', {
           confirmButtonText: '确定',

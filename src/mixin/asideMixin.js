@@ -16,6 +16,8 @@ export default {
       this.$store.dispatch('aside/apigetAsideMethod').then(() => {
         this.asideLoad = true
       })
+    } else {
+      this.asideLoad = true
     }
   }
 }
