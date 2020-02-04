@@ -29,6 +29,7 @@
         </el-date-picker>
       </div>
       <el-table
+        v-loading="loading"
         :data="viewDetails"
         stripe
         border
@@ -80,7 +81,8 @@ export default {
       viewDetails: [],
       total: 0,
       limit: 20,
-      page: 1
+      page: 1,
+      loading: false
     }
   },
   mounted () {
@@ -167,12 +169,14 @@ export default {
       }
     },
     async apiSelectViewsDetailMethod (start, end, page) {
+      this.loading = true
       let result = await apiSelectViewsDetail({
         start,
         end,
         limit: this.limit,
         page: page || 1
       })
+      this.loading = false
       if (result.isok) {
         this.viewDetails = result.data.selectData
         this.total = result.data.total
