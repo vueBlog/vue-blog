@@ -52,9 +52,10 @@
               </div>
             </template>
             <el-menu-item index="6-1" :route="`/admin/${userInfo.id}`">个人中心</el-menu-item>
-            <el-menu-item index="6-2" route="/admin/views">访问量</el-menu-item>
-            <el-menu-item index="6-3" route="/admin/authority" v-if="userInfo.admin">授权</el-menu-item>
-            <el-menu-item index="6-4" route="/signIn">退出</el-menu-item>
+            <el-menu-item index="6-2" route="/admin/column">文章专栏</el-menu-item>
+            <el-menu-item index="6-3" route="/admin/views">访问量</el-menu-item>
+            <el-menu-item index="6-4" route="/admin/authority" v-if="userInfo.admin">授权</el-menu-item>
+            <el-menu-item index="6-5" route="/signIn">退出</el-menu-item>
           </el-submenu>
         </template>
       </el-menu>
@@ -123,11 +124,20 @@ export default {
         case 'adminUser':
           res = '6-1'
           break
-        case 'adminViews':
+        case 'adminColumn':
           res = '6-2'
           break
-        case 'adminAuthority':
+        case 'adminColumnDetail':
+          res = '6-2'
+          break
+        case 'adminColumnDetailEditor':
+          res = '6-2'
+          break
+        case 'adminViews':
           res = '6-3'
+          break
+        case 'adminAuthority':
+          res = '6-4'
           break
         default:
           res = '1'
@@ -195,7 +205,7 @@ export default {
       }
     },
     menuHandleSelect (item) {
-      if (item === '6-4') {
+      if (item === '6-5') {
         this.$store.commit('signIn/setToken', '')
         this.$cookie.remove('vueBlogToken', { path: '' })
       }

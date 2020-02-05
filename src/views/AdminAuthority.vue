@@ -49,7 +49,26 @@ export default {
   computed: {
     ...mapState({
       userInfo: 'userInfo'
-    })
+    }),
+    title () {
+      return this.userInfo.name ? `${this.userInfo.name}-授权` : '授权'
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
+    }
   },
   created () {
     this.apiSelectAuthorityMethod()

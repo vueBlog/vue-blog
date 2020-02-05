@@ -24,6 +24,7 @@ export default {
       limit: 5,
       page: 1,
       dateTime: '',
+      columnId: '',
       author: '',
       listLoad: false
     }
@@ -39,6 +40,7 @@ export default {
     this.order = this.$route.query.order * 1 || 0
     this.dateTime = this.$route.query.dateTime
     this.author = this.$route.query.author || 'admin'
+    this.columnId = this.$route.query.columnId
     this.apiArticleListMethod()
   },
   methods: {
@@ -48,7 +50,8 @@ export default {
         page: this.page,
         justOriginal: this.justOriginal,
         order: this.order,
-        dateTime: this.dateTime
+        dateTime: this.dateTime,
+        columnId: this.$route.query.columnId
       }
       if (this.$route.name === 'about') {
         query.author = this.author
@@ -129,11 +132,18 @@ export default {
       this.listLoad = false
       this.dateTime = value
       this.apiArticleListMethod()
+      this.columnInfo = {}
     },
     '$route.query.author': function (value) {
       this.listLoad = false
       this.author = value
       this.apiArticleListMethod()
+    },
+    '$route.query.columnId': function (value) {
+      this.listLoad = false
+      this.columnId = value
+      this.apiArticleListMethod()
+      this.apiColumnDetailMethod()
     }
   }
 }

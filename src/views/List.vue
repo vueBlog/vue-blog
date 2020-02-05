@@ -8,13 +8,26 @@
         <div class="no-data">暂无数据</div>
       </template>
       <template v-else>
-        <aside-card
-          :cardType="asideFile.type"
-          :title="asideFile.title"
-          :info="asideFile.info"></aside-card>
+        <aside-card v-for="item in asideFile"
+          :key="item.type"
+          :cardType="item.type"
+          :title="item.title"
+          :info="item.info"></aside-card>
       </template>
     </el-aside>
     <el-main class="content">
+      <template v-if="columnInfo && columnInfo.columnTitle">
+        <div class="row ellipsis">
+          专栏名称： {{ columnInfo.columnTitle }}
+        </div>
+        <div class="row ellipsis">
+          专栏介绍： {{ columnInfo.columnContent }}
+        </div>
+        <div class="row ellipsis">
+          文章数： {{ columnInfo.columnNumber }}
+        </div>
+        <div style="border-top: 1px solid #e6e6e6;"></div>
+      </template>
       <div class="content-header clearfix">
         <el-checkbox v-model="justOriginal" @change="toJustOriginal">仅看原创</el-checkbox>
         <div class="content-header_select fr">
@@ -57,6 +70,7 @@
 </template>
 
 <script>
+import { apiColumnDetail } from './../service/column'
 import AsideCardSkeleton from './../components/AsideCardSkeleton.vue'
 import ListArticleSkeleton from './../components/ListArticleSkeleton.vue'
 import AsideCard from './../components/AsideCard.vue'
@@ -70,11 +84,13 @@ export default {
   name: 'list',
   mixins: [asideMixin, listArticleMixin],
   data () {
-    return {}
+    return {
+      columnInfo: {}
+    }
   },
   computed: {
     asideFile () {
-      return this.asideList.filter(item => item.type === 4)[0]
+      return this.asideList.filter(item => [2, 4].includes(item.type))
     },
     title () {
       return this.$route.query.dateTime ? `${this.$route.query.dateTime}-${defaultTitle}` : `${defaultTitle}`
@@ -101,10 +117,28 @@ export default {
     ListArticleSkeleton,
     AsideCard,
     ListArticle
+  },
+  created () {
+    if (this.$route.query.columnId) {
+      this.apiColumnDetailMethod()
+    }
+  },
+  methods: {
+    async apiColumnDetailMethod () {
+      let result = await apiColumnDetail({
+        id: this.$route.query.columnId
+      })
+      if (result.isok) {
+        this.columnInfo = result.data
+      }
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import './../style/views/home.scss';
+.row {
+  margin: 15px 0;
+}
 </style>

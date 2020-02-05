@@ -10,6 +10,9 @@ const PageDetail = () => import(/* webpackChunkName: "group-detail" */ './../vie
 const PageEditor = () => import(/* webpackChunkName: "group-editor" */ './../views/Editor.vue')
 const PageAdmin = () => import(/* webpackChunkName: "group-admin" */ './../views/Admin.vue')
 const PageAdminUser = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminUser.vue')
+const PageAdminColumn = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminColumn.vue')
+const PageAdminColumnDetail = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminColumnDetail.vue')
+const PageAdminColumnEditor = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminColumnEditor.vue')
 const PageAdminViews = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminViews.vue')
 const PageAdminAuthority = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminAuthority.vue')
 
@@ -56,6 +59,21 @@ const routes = [
         path: 'views',
         name: 'adminViews',
         component: PageAdminViews
+      },
+      {
+        path: 'column',
+        name: 'adminColumn',
+        component: PageAdminColumn
+      },
+      {
+        path: 'column/edit/:id?',
+        name: 'adminColumnDetailEditor',
+        component: PageAdminColumnEditor
+      },
+      {
+        path: 'column/:id',
+        name: 'adminColumnDetail',
+        component: PageAdminColumnDetail
       },
       {
         path: 'authority',

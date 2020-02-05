@@ -7,8 +7,9 @@ export const apiTokenGetUserInfo = (paramsData) => {
 
 export const apiSearch = (paramsData) => {
   return Vue.axios.post('/search', {
-    ...paramsData,
-    showLoading: false,
-    needAll: true
+    ...paramsData
+  },
+  {
+    needLast: true
   })
 }

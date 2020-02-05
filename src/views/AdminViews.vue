@@ -1,6 +1,7 @@
 <template>
   <el-tabs v-model="activeName" @tab-click="tabClick">
     <el-tab-pane label="访问量概览" name="first">
+      <div style="margin: 15px 0;">总访问量：{{ allTotal }}</div>
       <div>
         <span>查看时间段：</span>
         <el-date-picker
@@ -12,10 +13,12 @@
           value-format="yyyy-MM-dd"
           @change="selectDateChange">
         </el-date-picker>
+        <span style="margin-left: 15px;">当前时间段访问量：{{ total }}</span>
       </div>
       <div id="echart" style="height: 600px;"></div>
     </el-tab-pane>
     <el-tab-pane label="访问量详情" name="second">
+      <div style="margin: 15px 0;">总访问量：{{ allTotal }}</div>
       <div style="margin: 0 0 15px 0;">
         <span>查看时间段：</span>
         <el-date-picker
@@ -27,6 +30,7 @@
           value-format="yyyy-MM-dd"
           @change="selectDateChange">
         </el-date-picker>
+        <span style="margin-left: 15px;">当前时间段访问量：{{ total }}</span>
       </div>
       <el-table
         v-loading="loading"
@@ -66,6 +70,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { apiSelectViews, apiSelectViewsDetail } from './../service/admin'
 const echarts = require('echarts')
 
@@ -79,10 +84,35 @@ export default {
       activeName: 'first',
       selectDate: [],
       viewDetails: [],
+      allTotal: 0,
       total: 0,
       limit: 20,
       page: 1,
       loading: false
+    }
+  },
+  computed: {
+    ...mapState([
+      'userInfo'
+    ]),
+    title () {
+      return this.userInfo.name ? `${this.userInfo.name}-访问量` : '访问量'
+    },
+    metaKeywords () {
+      return `${this.title} | ${process.env.VUE_APP_keywords}`
+    },
+    metaDescription () {
+      return `${this.title} | ${process.env.VUE_APP_description}`
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.title,
+      titleTemplate: `%s | ${process.env.VUE_APP_title}的博客`,
+      meta: [
+        { keywords: 'keywords', content: this.metaKeywords },
+        { keywords: 'description', content: this.metaDescription }
+      ]
     }
   },
   mounted () {
@@ -180,6 +210,7 @@ export default {
       if (result.isok) {
         this.viewDetails = result.data.selectData
         this.total = result.data.total
+        this.allTotal = result.data.allTotal
       }
     },
     tabClick () {

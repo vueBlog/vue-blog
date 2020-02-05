@@ -9,11 +9,15 @@
             <i class="el-icon-user"></i>
             <span slot="title">个人中心</span>
           </el-menu-item>
-          <el-menu-item index="2" route="/admin/views">
+          <el-menu-item index="2" route="/admin/column">
+            <i class="el-icon-notebook-2"></i>
+            <span slot="title">文章专栏</span>
+          </el-menu-item>
+          <el-menu-item index="3" route="/admin/views">
             <i class="el-icon-data-line"></i>
             <span slot="title">访问量</span>
           </el-menu-item>
-          <el-menu-item index="3" route="/admin/authority" v-if="userInfo.admin">
+          <el-menu-item index="4" route="/admin/authority" v-if="userInfo.admin">
             <i class="el-icon-set-up"></i>
             <span slot="title">授权</span>
           </el-menu-item>
@@ -49,11 +53,20 @@ export default {
         case 'adminUser':
           index = '1'
           break
-        case 'adminViews':
+        case 'adminColumn':
           index = '2'
           break
-        case 'adminAuthority':
+        case 'adminColumnDetail':
+          index = '2'
+          break
+        case 'adminColumnDetailEditor':
+          index = '2'
+          break
+        case 'adminViews':
           index = '3'
+          break
+        case 'adminAuthority':
+          index = '4'
           break
         default:
           index = '1'

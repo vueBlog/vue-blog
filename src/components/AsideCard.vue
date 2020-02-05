@@ -54,6 +54,8 @@ export default {
           res = '/detail/'
           break
         case 2:
+          res = '/list?columnId='
+          break
         case 4:
           res = '/list?dateTime='
           break

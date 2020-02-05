@@ -3,7 +3,9 @@ import '@/plugins/axios'
 
 export const apiAddArticle = (paramsData) => {
   return Vue.axios.post('/addArticle', {
-    ...paramsData,
+    ...paramsData
+  },
+  {
     showLoading: true
   })
 }
@@ -12,7 +14,8 @@ export const apiArticleList = (paramsData) => {
   return Vue.axios.get('/articleList', {
     params: {
       ...paramsData
-    }
+    },
+    needLast: true
   })
 }
 
@@ -27,21 +30,27 @@ export const apiArticleDetail = (paramsData) => {
 
 export const apiUpdateArticle = (paramsData) => {
   return Vue.axios.post('/updateArticle', {
-    ...paramsData,
+    ...paramsData
+  },
+  {
     showLoading: true
   })
 }
 
 export const apiDeleteArticle = (paramsData) => {
   return Vue.axios.post('/deleteArticle', {
-    ...paramsData,
+    ...paramsData
+  },
+  {
     showLoading: true
   })
 }
 
 export const apiAddStar = (paramsData) => {
   return Vue.axios.post('/addStar', {
-    ...paramsData,
+    ...paramsData
+  },
+  {
     showLoading: true
   })
 }
