@@ -131,6 +131,12 @@ export default {
         this.nextInfo = result.data.nextInfo
         this.authorInfo = result.data.authorInfo
         this.getResult = true
+        setTimeout(() => {
+          if (this.$route.hash) {
+            let hash = decodeURI(this.$route.hash)
+            document.querySelector(hash) && document.querySelector(hash).scrollIntoView({ block: 'center', inline: 'center' })
+          }
+        }, 300)
       }
     },
     toEditor () {
