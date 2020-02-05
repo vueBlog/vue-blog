@@ -153,7 +153,6 @@ export default {
       }
     },
     tabClick () {
-      console.log(this.activeName)
       this.apiColumnArticleListMethod()
       this.apiColumnArticleAllListMethod()
       this.apiColumnArticleAddAllListMethod()
@@ -182,6 +181,8 @@ export default {
           this.apiColumnArticleListMethod()
           this.apiColumnArticleAllListMethod()
           this.apiColumnArticleAddAllListMethod()
+          this.$store.dispatch('aside/apigetAsideMethod')
+          this.$store.dispatch('aside/apigetAsideAuthorMethod')
         })
       }
     },
