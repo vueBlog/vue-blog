@@ -40,7 +40,7 @@
         height="350"
         style="width: 100%">
         <el-table-column
-          prop="time"
+          prop="viewTime"
           label="日期"
           width="180">
         </el-table-column>
