@@ -64,6 +64,64 @@ export default {
   },
   mounted () {
     this.$Progress.finish()
+    const userAgent = this.getBrowserInfo()
+    this.$store.commit('setUserAgent', {
+      system: userAgent[0],
+      browser: userAgent[1],
+      browserVersion: userAgent[2],
+      ip: window.returnCitySN ? window.returnCitySN.cip : '',
+      city: window.returnCitySN ? window.returnCitySN.cname : ''
+    })
+  },
+  methods: {
+    getBrowserInfo () {
+      const agent = navigator.userAgent.toLowerCase()
+      const arr = []
+      const system = agent.split(' ')[1].split(' ')[0].split('(')[1]
+      arr.push(system)
+      const regStrEdge = /edge\/[\d.]+/gi
+      const regStrIe = /trident\/[\d.]+/gi
+      const regStrFirefox = /firefox\/[\d.]+/gi
+      const regStrChrome = /chrome\/[\d.]+/gi
+      const regStrSafari = /safari\/[\d.]+/gi
+      const regStrOpera = /opr\/[\d.]+/gi
+      // IE
+      if (agent.indexOf('trident') > 0) {
+        arr.push(agent.match(regStrIe)[0].split('/')[0])
+        arr.push(agent.match(regStrIe)[0].split('/')[1])
+        return arr
+      }
+      // Edge
+      if (agent.indexOf('edge') > 0) {
+        arr.push(agent.match(regStrEdge)[0].split('/')[0])
+        arr.push(agent.match(regStrEdge)[0].split('/')[1])
+        return arr
+      }
+      // firefox
+      if (agent.indexOf('firefox') > 0) {
+        arr.push(agent.match(regStrFirefox)[0].split('/')[0])
+        arr.push(agent.match(regStrFirefox)[0].split('/')[1])
+        return arr
+      }
+      // Opera
+      if (agent.indexOf('opr') > 0) {
+        arr.push(agent.match(regStrOpera)[0].split('/')[0])
+        arr.push(agent.match(regStrOpera)[0].split('/')[1])
+        return arr
+      }
+      // Safari
+      if (agent.indexOf('safari') > 0 && agent.indexOf('chrome') < 0) {
+        arr.push(agent.match(regStrSafari)[0].split('/')[0])
+        arr.push(agent.match(regStrSafari)[0].split('/')[1])
+        return arr
+      }
+      // Chrome
+      if (agent.indexOf('chrome') > 0) {
+        arr.push(agent.match(regStrChrome)[0].split('/')[0])
+        arr.push(agent.match(regStrChrome)[0].split('/')[1])
+        return arr
+      }
+    }
   }
 }
 </script>

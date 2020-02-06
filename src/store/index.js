@@ -19,6 +19,13 @@ export default new Vuex.Store({
       email: '',
       admin: '',
       authority: 0
+    },
+    userAgent: {
+      system: '',
+      browser: '',
+      browserVersion: '',
+      ip: '',
+      city: ''
     }
   },
   getters: {
@@ -36,6 +43,9 @@ export default new Vuex.Store({
     },
     setUserInfo (state, obj) {
       state.userInfo = obj
+    },
+    setUserAgent (state, obj) {
+      state.userAgent = obj
     }
   },
   actions: {

@@ -42,16 +42,37 @@
         <el-table-column
           prop="time"
           label="日期"
-          width="220">
+          width="180">
         </el-table-column>
         <el-table-column
           prop="routeFrom"
           label="from路由"
-          width="220">
+          width="130">
         </el-table-column>
         <el-table-column
           prop="routeTo"
-          label="to路由">
+          label="to路由"
+          width="130">
+        </el-table-column>
+        <el-table-column
+          prop="clientIp"
+          label="ip地址"
+          width="150">
+        </el-table-column>
+        <el-table-column
+          prop="clientCity"
+          label="城市"
+          width="150">
+        </el-table-column>
+        <el-table-column
+          prop="clientBrowser"
+          label="浏览器"
+          width="100">
+        </el-table-column>
+        <el-table-column
+          prop="clientSystem"
+          label="系统"
+          width="100">
         </el-table-column>
       </el-table>
       <div style="margin: 15px 0 0;">

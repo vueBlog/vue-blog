@@ -33,7 +33,8 @@ router.beforeEach((to, from, next) => {
   store.commit('setSource', CancelToken.source())
   Vue.axios.post('/adminviews/add', {
     from: from.fullPath,
-    to: to.fullPath
+    to: to.fullPath,
+    ...store.state.userAgent
   })
   next()
 })
