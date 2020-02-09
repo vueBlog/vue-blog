@@ -240,4 +240,46 @@ pre.hljs {
     pointer-events: none;
   }
 }
+.detail-content {
+  table {
+    max-width: 100%;
+    margin: 10px 0;
+    background-color: #fff;
+    border-collapse: collapse;
+    border-spacing: 0;
+    thead {
+       tr {
+        background-color: #f2f2f2;
+      }
+    }
+    tr {
+      transition: all .3s;
+      &:hover {
+        background-color: #f2f2f2;
+      }
+    }
+    th, td {
+      border: 1px solid #e6e6e6;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+    tbody {
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+    }
+  }
+  code {
+    padding: 0 5px;
+    color: #f00;
+    background-color: #f2f2f2;
+  }
+  pre {
+    code {
+      padding: initial;
+      color: #fff;
+      background-color: initial;
+    }
+  }
+}
 </style>
