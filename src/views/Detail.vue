@@ -22,7 +22,7 @@
           </div>
         </el-page-header>
         <div class="detail-info clearfix">
-          <div class="info-item">{{ $moment(info.articleUpdateTime).format('YYYY-MM-DD HH:mm:ss') || $moment(info.articleCreateTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
+          <div class="info-item">{{ info.articleUpdateTime ? $moment(info.articleUpdateTime).format('YYYY-MM-DD HH:mm:ss') : $moment(info.articleCreateTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
           <router-link :to="`/about/${authorInfo.authorId}`" class="info-item item-author">{{ authorInfo.authorName }}</router-link>
           <div class="info-item">views: {{ info.articleView }}</div>
           <el-button v-if="editAuthority" class="fr" icon="el-icon-edit" size="small" @click="toEditor">编辑</el-button>
