@@ -94,11 +94,7 @@ const router = new VueRouter({
   base: '/vue-blog/',
   routes,
   scrollBehavior (to, from, savedPosition) {
-    if (to.hash) {
-      return {
-        selector: to.hash
-      }
-    } else if (savedPosition) {
+    if (savedPosition) {
       return savedPosition
     } else {
       return {
