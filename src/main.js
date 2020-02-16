@@ -13,6 +13,11 @@ import './style/common.scss'
 
 // console.log(process.env.VUE_APP_host)
 // console.log(process.env.VUE_APP_pathname)
+console.log(process.env.NODE_ENV)
+
+if (process.env.NODE_ENV === 'mock') {
+  require('./mock/index')
+}
 
 const options = {
   color: '#409EFF'

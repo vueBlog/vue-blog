@@ -72,6 +72,7 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   response => {
     // Do something with response data
+    console.log(response)
     let nowUrl = response.config.url.replace('/api/vue-blog', '')
     if (pageAxiosList.has(nowUrl)) {
       pageAxiosList.delete(nowUrl)
