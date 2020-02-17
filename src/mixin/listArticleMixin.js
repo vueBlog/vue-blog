@@ -116,15 +116,15 @@ export default {
   },
   watch: {
     '$route.query.page': function (value) {
-      this.page = value
+      this.page = value || 1
       this.apiArticleListMethod()
     },
     '$route.query.original': function (value) {
-      this.justOriginal = value
+      this.justOriginal = value || false
       this.apiArticleListMethod()
     },
     '$route.query.order': function (value) {
-      this.order = value
+      this.order = value || 0
       this.apiArticleListMethod()
     },
     '$route.query.dateTime': function (value) {

@@ -72,7 +72,10 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   response => {
     // Do something with response data
-    console.log(response)
+    if (process.env.NODE_ENV === 'mock') {
+      console.log(response.data)
+    }
+
     let nowUrl = response.config.url.replace('/api/vue-blog', '')
     if (pageAxiosList.has(nowUrl)) {
       pageAxiosList.delete(nowUrl)

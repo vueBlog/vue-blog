@@ -90,7 +90,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: process.env.NODE_ENV === 'development' ? 'hash' : 'history',
+  mode: process.env.NODE_ENV === 'production' ? 'history' : 'hash',
   base: '/vue-blog/',
   routes,
   scrollBehavior (to, from, savedPosition) {
