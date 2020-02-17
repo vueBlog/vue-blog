@@ -51,3 +51,9 @@ console.log(process.env.VUE_APP_SECRET)
 ```
 
 在构建过程中，`process.env.VUE_APP_SECRET` 将会被相应的值所取代。在 `VUE_APP_SECRET=secret` 的情况下，它会被替换为 `"secret"`。
+
+## Mock的使用
+
+添加 [Mock](https://github.com/nuysoft/Mock) 生成模拟数据。
+
+新添加了一种运行模式 `"mock": "vue-cli-service serve --mode mock"` ,要使用 mock 生成假数据的时候，直接运行 `npm run mock`。
