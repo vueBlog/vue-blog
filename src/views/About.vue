@@ -39,8 +39,7 @@
       </div>
       <div class="content-list">
         <template v-if="!articleList.length && !listLoad">
-          <list-article-skeleton></list-article-skeleton>
-          <list-article-skeleton></list-article-skeleton>
+          <list-article-skeleton v-for="i in 5" :key="i"></list-article-skeleton>
         </template>
         <template v-else-if="!articleList.length && listLoad">
           <div class="no-data">暂无数据</div>

@@ -45,6 +45,8 @@ export default {
   },
   methods: {
     async apiArticleListMethod () {
+      this.listLoad = false
+      this.articleList = []
       let query = {
         limit: this.limit,
         page: this.page,
@@ -114,33 +116,27 @@ export default {
   },
   watch: {
     '$route.query.page': function (value) {
-      this.listLoad = false
       this.page = value
       this.apiArticleListMethod()
     },
     '$route.query.original': function (value) {
-      this.listLoad = false
       this.justOriginal = value
       this.apiArticleListMethod()
     },
     '$route.query.order': function (value) {
-      this.listLoad = false
       this.order = value
       this.apiArticleListMethod()
     },
     '$route.query.dateTime': function (value) {
-      this.listLoad = false
       this.dateTime = value
       this.apiArticleListMethod()
       this.columnInfo = {}
     },
     '$route.query.author': function (value) {
-      this.listLoad = false
       this.author = value
       this.apiArticleListMethod()
     },
     '$route.query.columnId': function (value) {
-      this.listLoad = false
       this.columnId = value
       this.apiArticleListMethod()
       this.apiColumnDetailMethod()
