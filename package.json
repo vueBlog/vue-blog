@@ -15,6 +15,7 @@
     "core-js": "^3.4.1",
     "echarts": "^4.5.0",
     "element-ui": "^2.4.5",
+    "github-markdown-css": "^3.0.1",
     "highlight.js": "^9.16.2",
     "js-cookie": "^2.2.1",
     "markdown-it": "^10.0.0",

@@ -31,7 +31,7 @@
         <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo"></prev-and-next>
       </div>
       <div class="detail-content">
-        <div class="article-content" v-html="info.articleContentHtml"></div>
+        <div class="article-content markdown-body" v-html="info.articleContentHtml"></div>
         <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo"></prev-and-next>
       </div>
     </el-main>
@@ -45,6 +45,7 @@ import DetailSkeleton from './../components/DetailSkeleton.vue'
 import AsideCard from './../components/AsideCard.vue'
 import prevAndNext from './../components/PrevAndNext.vue'
 import 'highlight.js/scss/default.scss'
+import 'github-markdown-css/github-markdown.css'
 import 'highlight.js/styles/vs2015.css'
 import { apiArticleDetail, apiAddStar } from './../service/article'
 import asideMixin from './../mixin/asideMixin'
@@ -171,10 +172,9 @@ export default {
 
 <style lang="scss">
 .markdownIt-TOC {
-  padding: 0;
-  margin: 0 0 15px 15px;
   float: right;
   list-style: none;
+  background: #fff;
   &::before {
     content: '目录：';
     font-weight: 700;
@@ -194,14 +194,18 @@ export default {
   font-size: 14px;
   color: #333;
   line-height: 1.5;
-  h1, h2, h3, h4, h5, h6 {
-    a {
-      color: #409EFF;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+}
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto 20px;
+  pre {
+    background: #1E1E1E;
+  }
+  table {
+    width: auto;
+    max-width: 100%;
   }
 }
 .el-page-header {
@@ -239,48 +243,6 @@ pre.hljs {
     z-index: 10;
     color: #999;
     pointer-events: none;
-  }
-}
-.detail-content {
-  table {
-    max-width: 100%;
-    margin: 10px 0;
-    background-color: #fff;
-    border-collapse: collapse;
-    border-spacing: 0;
-    thead {
-       tr {
-        background-color: #f2f2f2;
-      }
-    }
-    tr {
-      transition: all .3s;
-      &:hover {
-        background-color: #f2f2f2;
-      }
-    }
-    th, td {
-      border: 1px solid #e6e6e6;
-      padding: 5px 10px;
-      font-size: 14px;
-    }
-    tbody {
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-    }
-  }
-  code {
-    padding: 0 5px;
-    color: #f00;
-    background-color: #f2f2f2;
-  }
-  pre {
-    code {
-      padding: initial;
-      color: #fff;
-      background-color: initial;
-    }
   }
 }
 </style>
