@@ -15,7 +15,7 @@
         label="专栏名称">
       </el-table-column>
       <el-table-column
-        label="文章数"
+        label="文章总数"
         width="150">
         <template slot-scope="scope">
           {{ scope.row.columnNumber }} 篇

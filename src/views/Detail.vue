@@ -173,21 +173,13 @@ export default {
 <style lang="scss">
 .markdownIt-TOC {
   float: right;
-  list-style: none;
   background: #fff;
   &::before {
-    content: '目录：';
+    content: '文章目录：';
     font-weight: 700;
     color: currentColor;
-    margin-left: 18px;
+    margin-left: -1.5em;
     line-height: 26px;
-  }
-  a {
-    text-decoration: none;
-    color: #666;
-    &:hover {
-      color: #409EFF;
-    }
   }
 }
 .article-content {
@@ -200,11 +192,11 @@ export default {
   min-width: 200px;
   margin: 0 auto 20px;
   pre {
-    background: #1E1E1E;
+    background: #1E1E1E!important;
   }
   table {
-    width: auto;
-    max-width: 100%;
+    width: auto!important;
+    max-width: 100%!important;
   }
 }
 .el-page-header {

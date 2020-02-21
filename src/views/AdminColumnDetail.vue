@@ -11,7 +11,7 @@
       创建时间： {{ info.time }}
     </div>
     <div class="row ellipsis">
-      文章数： {{ total }}
+      文章总数： {{ total }}
     </div>
     <el-tabs v-model="activeName" @tab-click="tabClick">
       <el-tab-pane label="文章列表" name="first">

@@ -24,7 +24,7 @@
           专栏介绍： {{ columnInfo.columnContent }}
         </div>
         <div class="row ellipsis">
-          文章数： {{ columnInfo.columnNumber }}
+          文章总数： {{ columnInfo.columnNumber }}
         </div>
         <div style="border-top: 1px solid #e6e6e6;"></div>
       </template>
