@@ -32,8 +32,8 @@
       </div>
       <div class="detail-content">
         <div class="article-content markdown-body" v-html="info.articleContentHtml"></div>
-        <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo"></prev-and-next>
       </div>
+      <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo" style="padding: 15px;"></prev-and-next>
     </el-main>
   </el-container>
 </template>
@@ -187,16 +187,19 @@ export default {
   color: #333;
   line-height: 1.5;
 }
-.markdown-body {
-  box-sizing: border-box;
-  min-width: 200px;
-  margin: 0 auto 20px;
-  pre {
-    background: #1E1E1E!important;
-  }
-  table {
-    width: auto!important;
-    max-width: 100%!important;
+.detail-content {
+  .markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    pre {
+      background: #1E1E1E!important;
+    }
+    table {
+      width: auto!important;
+      max-width: 100%!important;
+    }
   }
 }
 .el-page-header {
