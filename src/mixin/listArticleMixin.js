@@ -21,7 +21,7 @@ export default {
       order: 0,
       articleList: [],
       total: 0,
-      limit: 10,
+      limit: process.env.VUE_APP_listLimit ? process.env.VUE_APP_listLimit * 1 : 10,
       page: 1,
       dateTime: '',
       columnId: '',
