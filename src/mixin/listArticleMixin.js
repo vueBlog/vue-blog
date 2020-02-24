@@ -21,7 +21,7 @@ export default {
       order: 0,
       articleList: [],
       total: 0,
-      limit: 5,
+      limit: 10,
       page: 1,
       dateTime: '',
       columnId: '',
