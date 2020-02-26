@@ -75,17 +75,17 @@ export default {
         {
           index: '1',
           route: '/',
-          title: '首页'
+          title: this.$t('nav.home')
         },
         {
           index: '2',
           route: '/list',
-          title: '归档'
+          title: this.$t('nav.list')
         },
         {
           index: '3',
           route: '/about',
-          title: '关于'
+          title: this.$t('nav.about')
         }
       ],
       searchValue: '',
