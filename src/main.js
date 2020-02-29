@@ -39,7 +39,8 @@ router.beforeEach((to, from, next) => {
   Vue.axios.post('/views/add', {
     from: from.fullPath,
     to: to.fullPath,
-    ...store.state.userAgent
+    ...store.state.userAgent,
+    client: 0
   })
   next()
 })
