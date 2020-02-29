@@ -29,13 +29,13 @@ export const apiUpdateUser = (paramsData) => {
 }
 
 export const apiAddViews = (paramsData) => {
-  return Vue.axios.post('/adminviews/add', {
+  return Vue.axios.post('/views/add', {
     ...paramsData
   })
 }
 
 export const apiSelectViews = (paramsData) => {
-  return Vue.axios.get('/adminviews/select', {
+  return Vue.axios.get('/views/select', {
     params: {
       ...paramsData
     },
@@ -44,7 +44,7 @@ export const apiSelectViews = (paramsData) => {
 }
 
 export const apiSelectViewsDetail = (paramsData) => {
-  return Vue.axios.get('/adminviews/selectDetail', {
+  return Vue.axios.get('/views/selectDetail', {
     params: {
       ...paramsData
     },

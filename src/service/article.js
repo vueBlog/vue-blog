@@ -2,7 +2,7 @@ import Vue from 'vue'
 import '@/plugins/axios'
 
 export const apiAddArticle = (paramsData) => {
-  return Vue.axios.post('/addArticle', {
+  return Vue.axios.post('/article/add', {
     ...paramsData
   },
   {
@@ -20,7 +20,7 @@ export const apiArticleList = (paramsData) => {
 }
 
 export const apiArticleDetail = (paramsData) => {
-  return Vue.axios.get('/getArticleDetail', {
+  return Vue.axios.get('/article/detail', {
     params: {
       ...paramsData
     },
@@ -29,7 +29,7 @@ export const apiArticleDetail = (paramsData) => {
 }
 
 export const apiUpdateArticle = (paramsData) => {
-  return Vue.axios.post('/updateArticle', {
+  return Vue.axios.post('/article/update', {
     ...paramsData
   },
   {
@@ -38,7 +38,7 @@ export const apiUpdateArticle = (paramsData) => {
 }
 
 export const apiDeleteArticle = (paramsData) => {
-  return Vue.axios.post('/deleteArticle', {
+  return Vue.axios.post('/article/delete', {
     ...paramsData
   },
   {
