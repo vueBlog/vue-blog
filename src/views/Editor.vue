@@ -220,10 +220,10 @@ export default {
     },
     imgAdd (pos, $file) {
       let formdata = new FormData()
-      formdata.append('articleId', this.$route.params.id)
+      formdata.append('articleId', this.$route.params.id ? this.$route.params.id : 0)
       formdata.append('image', $file)
       this.axios({
-        url: `/api/images/add`,
+        url: `images/add`,
         method: 'post',
         data: formdata,
         headers: { 'Content-Type': 'multipart/form-data' },
