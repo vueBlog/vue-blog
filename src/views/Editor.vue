@@ -68,6 +68,7 @@ export default {
   data () {
     return {
       toolbars: toolbars,
+      token: '',
       articleInfo: {
         name: '',
         nature: '',
@@ -124,6 +125,7 @@ export default {
     if (this.$route.params.id) {
       this.apiArticleDetailMethod()
     }
+    this.getToken()
   },
   methods: {
     async apiArticleDetailMethod () {
@@ -218,19 +220,21 @@ export default {
       this.inputVisible = false
       this.inputValue = ''
     },
+    async getToken () {
+      const result = await this.axios.get('/images/add', { showLoading: true })
+      result.isok && (this.token = result.upToken)
+    },
     imgAdd (pos, $file) {
+      const keyname = $file.name.replace(/.*(\.[a-zA-Z]*)/, `article${Date.parse(new Date())}${Math.floor(Math.random() * 100)}$1`)
       let formdata = new FormData()
-      formdata.append('articleId', this.$route.params.id ? this.$route.params.id : 0)
-      formdata.append('image', $file)
-      this.axios({
-        url: `images/add`,
-        method: 'post',
-        data: formdata,
-        headers: { 'Content-Type': 'multipart/form-data' },
-        showLoading: true,
-        needAll: true
-      }).then(res => {
-        this.$refs.md.$img2Url(pos, `${process.env.VUE_APP_host}/${res.data.src}`)
+      formdata.append('file', $file)
+      formdata.append('token', this.token)
+      formdata.append('key', keyname)
+      const config = {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      }
+      this.axios.post(process.env.VUE_APP_qiniu_domain, formdata, config).then(res => {
+        this.$refs.md.$img2Url(pos, `${process.env.VUE_APP_img_domain}/${res.key}`)
       }).catch(err => {
         console.log(err)
       })

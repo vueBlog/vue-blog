@@ -85,7 +85,7 @@ _axios.interceptors.response.use(
       pageLoading && pageLoading.close()
     }
 
-    if (response.data.isok) {
+    if (response.status === 200 || response.data.isok) {
       return response.data
     } else {
       let errorMessage =

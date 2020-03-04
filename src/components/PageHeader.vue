@@ -146,7 +146,7 @@ export default {
       return res
     },
     authorImg () {
-      return this.userInfo.authorHeadimg ? `${process.env.VUE_APP_host}/${this.userInfo.authorHeadimg}` : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+      return this.userInfo.authorHeadimg ? this.userInfo.authorHeadimg : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     }
   },
   created () {},

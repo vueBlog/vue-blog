@@ -4,11 +4,11 @@
       <el-form-item label="用户头像">
         <el-upload
           ref="headerUpload"
-          action="/api/vue-blog/addUserHeader"
           accept="image/png, image/jpeg"
           list-type="picture-card"
+          :action="action"
           :file-list="fileList"
-          :data="{ id: $route.params.id }"
+          :data="{ token, key: `id-${$route.params.id}` }"
           :before-upload="beforeAvatarUpload"
           :on-success="avatarUploadSuccess">
           <i class="el-icon-plus"></i>
@@ -48,6 +48,8 @@ export default {
   data () {
     return {
       headimg: '',
+      token: '',
+      action: process.env.VUE_APP_qiniu_domain,
       userInfo: {
         headimg: '',
         name: '',
@@ -93,8 +95,13 @@ export default {
   },
   created () {
     this.apiSelectUserMethod()
+    this.getToken()
   },
   methods: {
+    async getToken () {
+      const result = await this.axios.get(`/addUserHeader/getToken?id=${this.$route.params.id}`, { showLoading: true })
+      result.isok && (this.token = result.upToken)
+    },
     async apiSelectUserMethod () {
       let result = await apiSelectUser({
         authorId: this.$route.params.id
@@ -123,10 +130,15 @@ export default {
       return (isJPG || isPNG) && isLt2M
     },
     avatarUploadSuccess (result) {
-      if (result.isok) {
-        this.fileList = [{ url: `${process.env.VUE_APP_host}/${result.data.src}` }]
-        this.$nextTick(() => {
-          this.$store.dispatch('tokenGetUserInfo')
+      if (result.key) {
+        this.fileList = [{ url: `${process.env.VUE_APP_img_domain}/${result.key}` }]
+        this.axios.post('/addUserHeader/add', {
+          id: this.$route.params.id,
+          headerPath: `${process.env.VUE_APP_img_domain}/${result.key}`
+        }, { showLoading: true }).then(() => {
+          this.$nextTick(() => {
+            this.$store.dispatch('tokenGetUserInfo')
+          })
         })
       }
     },
