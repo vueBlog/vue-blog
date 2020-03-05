@@ -225,13 +225,14 @@ export default {
       result.isok && (this.token = result.upToken)
     },
     imgAdd (pos, $file) {
-      const keyname = $file.name.replace(/.*(\.[a-zA-Z]*)/, `article${Date.parse(new Date())}${Math.floor(Math.random() * 100)}$1`)
+      const keyname = $file.name.replace(/.*(\.[a-zA-Z]*)/, `article-${Date.parse(new Date())}${Math.floor(Math.random() * 100)}-${process.env.NODE_ENV}$1`)
       let formdata = new FormData()
       formdata.append('file', $file)
       formdata.append('token', this.token)
       formdata.append('key', keyname)
       const config = {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
+        needAll: true
       }
       this.axios.post(process.env.VUE_APP_qiniu_domain, formdata, config).then(res => {
         this.$refs.md.$img2Url(pos, `${process.env.VUE_APP_img_domain}/${res.key}`)

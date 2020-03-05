@@ -8,7 +8,7 @@
           list-type="picture-card"
           :action="action"
           :file-list="fileList"
-          :data="{ token, key: `id-${$route.params.id}` }"
+          :data="{ token, key: key }"
           :before-upload="beforeAvatarUpload"
           :on-success="avatarUploadSuccess">
           <i class="el-icon-plus"></i>
@@ -49,6 +49,7 @@ export default {
     return {
       headimg: '',
       token: '',
+      key: `header-${Date.parse(new Date())}-${this.$route.params.id}-${process.env.NODE_ENV}`,
       action: process.env.VUE_APP_qiniu_domain,
       userInfo: {
         headimg: '',
@@ -111,12 +112,13 @@ export default {
         this.userInfo.email = result.data.userInfo.authorEmail
         this.userInfo.introduce = result.data.userInfo.authorIntroduce
         if (result.data.userInfo.authorHeadimg) {
-          this.userInfo.headimg = `${process.env.VUE_APP_host}/${result.data.userInfo.authorHeadimg}`
+          this.userInfo.headimg = result.data.userInfo.authorHeadimg
           this.fileList = [{ url: this.userInfo.headimg }]
         }
       }
     },
     beforeAvatarUpload (file) {
+      this.key = `header-${Date.parse(new Date())}-${this.$route.params.id}-${process.env.NODE_ENV}`
       const isJPG = file.type === 'image/jpeg'
       const isPNG = file.type === 'image/png'
       const isLt2M = file.size / 1024 / 1024 < 2

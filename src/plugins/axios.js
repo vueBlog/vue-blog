@@ -84,16 +84,22 @@ _axios.interceptors.response.use(
     if (response.config.showLoading && !pageAxiosList.size) {
       pageLoading && pageLoading.close()
     }
-
     if (response.status === 200 || response.data.isok) {
       return response.data
     } else {
-      let errorMessage =
-        response.data.msg && response.data.msg.length ? response.data.msg : '网络出错，请重试'
-      Vue.prototype.$message.error({
-        message: errorMessage,
-        showClose: true
-      })
+      if (response.data.msg) {
+        let errorMessage =
+          response.data.msg && response.data.msg.length ? response.data.msg : '网络出错，请重试'
+        Vue.prototype.$message.error({
+          message: errorMessage,
+          showClose: true
+        })
+      } else {
+        Vue.prototype.$message.error({
+          message: response.data.error,
+          showClose: true
+        })
+      }
     }
 
     return response
