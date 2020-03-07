@@ -4,39 +4,54 @@
     :rules="rules"
     ref="articleInfo"
     label-width="100px">
-    <el-page-header @back="$router.go(-1)" content="编辑页面" style="padding: 0 0 20px 30px;margin-bottom: 22px;line-height: 32px;border-bottom: 1px solid #EBEEF5;"></el-page-header>
-    <el-form-item label="文章标题" prop="name">
-      <el-input v-model="articleInfo.name" placeholder="请填入文章标题"></el-input>
-    </el-form-item>
-    <el-form-item label="文章性质" prop="nature">
-      <el-select v-model="articleInfo.nature" placeholder="请选择文章性质">
-        <el-option label="原创" :value="0"></el-option>
-        <el-option label="转载" :value="1"></el-option>
-        <el-option label="翻译" :value="2"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="文章关键词">
-      <el-tag
-        v-for="tag in articleInfo.keyWords"
-        :key="tag"
-        closable
-        :disable-transitions="false"
-        @close="handleClose(tag)">
-        {{tag}}
-      </el-tag>
-      <el-input
-        class="input-new-tag"
-        v-if="inputVisible"
-        v-model="inputValue"
-        ref="saveTagInput"
-        size="small"
-        @keyup.enter.native="handleInputConfirm"
-        @blur="handleInputConfirm"
-      >
-      </el-input>
-      <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
-    </el-form-item>
-    <el-form-item label="文章内容" prop="desc">
+    <el-page-header @back="$router.go(-1)" class="editor-page-header">
+      <template v-slot:title>
+        <div class="back">返回</div>
+      </template>
+      <template v-slot:content>
+        <div class="flex">
+          <el-form-item label-width="0" prop="name" style="flex: auto;">
+            <el-input v-model="articleInfo.name" placeholder="请填入文章标题"></el-input>
+          </el-form-item>
+          <el-form-item label-width="20px">
+            <el-button type="primary" @click="submitForm('articleInfo')">{{ $route.params.id ? '更新' : '保存' }}</el-button>
+          </el-form-item>
+        </div>
+      </template>
+    </el-page-header>
+    <div class="flex">
+      <el-form-item label="文章性质" prop="nature">
+        <el-select v-model="articleInfo.nature" placeholder="请选择文章性质">
+          <el-option label="原创" :value="0"></el-option>
+          <el-option label="转载" :value="1"></el-option>
+          <el-option label="翻译" :value="2"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="文章关键词">
+        <el-tag
+          v-for="tag in articleInfo.keyWords"
+          :key="tag"
+          closable
+          :disable-transitions="false"
+          @close="handleClose(tag)">
+          {{tag}}
+        </el-tag>
+        <template v-if="articleInfo.keyWords.length < 4">
+          <el-input
+            class="input-new-tag"
+            v-if="inputVisible"
+            v-model="inputValue"
+            ref="saveTagInput"
+            size="small"
+            @keyup.enter.native="handleInputConfirm"
+            @blur="handleInputConfirm"
+          >
+          </el-input>
+          <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+        </template>
+      </el-form-item>
+    </div>
+    <el-form-item label="文章内容" prop="desc" style="margin-bottom: 0;">
       <mavon-editor
         v-model="articleInfo.desc"
         codeStyle="vs2015"
@@ -45,12 +60,10 @@
         :boxShadow="false"
         :autofocus="false"
         :toolbars="toolbars"
+        :tabSize="2"
         @imgAdd="imgAdd"
         @imgDel="imgDel">
       </mavon-editor>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('articleInfo')">{{ $route.params.id ? '更新' : '保存' }}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -248,6 +261,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.editor-page-header {
+  padding: 0 0 0 30px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #EBEEF5;
+  /deep/ {
+    .el-page-header__left {
+      margin-bottom: 20px;
+    }
+    .el-page-header__content {
+      flex: auto;
+    }
+    .el-form-item {
+      margin: 0;
+    }
+  }
+  .back {
+    line-height: 40px;
+  }
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
 .el-tag + .el-tag,
 .el-tag + .button-new-tag,
 .el-tag + .input-new-tag {
@@ -265,5 +301,7 @@ export default {
 }
 .v-note-wrapper {
   border: 1px solid #DCDFE6;
+  height: calc(100vh - 190px);
+  max-height: calc(100vh - 190px);
 }
 </style>
