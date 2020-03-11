@@ -49,6 +49,7 @@ import 'github-markdown-css/github-markdown.css'
 import 'highlight.js/styles/vs2015.css'
 import { apiArticleDetail, apiAddStar } from './../service/article'
 import asideMixin from './../mixin/asideMixin'
+import Clipboard from 'clipboard'
 
 const defaultTitle = '文章详情'
 export default {
@@ -60,7 +61,8 @@ export default {
       prevInfo: {},
       nextInfo: {},
       authorInfo: {},
-      getResult: false
+      getResult: false,
+      clipboard: ''
     }
   },
   components: {
@@ -120,6 +122,17 @@ export default {
   created () {
     this.apiArticleDetailMethod()
   },
+  mounted () {
+    this.$nextTick(() => {
+      this.clipboard = new Clipboard('.copy-btn')
+      this.clipboard.on('success', (e) => {
+        this.$message.success('复制成功')
+      })
+      this.clipboard.on('error', (e) => {
+        this.$message.error('复制成功失败')
+      })
+    })
+  },
   methods: {
     async apiArticleDetailMethod () {
       let result = await apiArticleDetail({
@@ -161,6 +174,9 @@ export default {
     '$route.params.id': function (value) {
       this.apiArticleDetailMethod()
     }
+  },
+  destroyed () {
+    this.clipboard.destroy()
   }
 }
 </script>
@@ -194,11 +210,11 @@ export default {
     padding-bottom: 20px;
     margin: 0 auto;
     pre {
-      background: #1E1E1E!important;
+      background: #1E1E1E !important;
     }
     table {
-      width: auto!important;
-      max-width: 100%!important;
+      width: auto !important;
+      max-width: 100% !important;
     }
   }
 }
@@ -208,35 +224,57 @@ export default {
   border-bottom: 1px solid #EBEEF5;
 }
 pre.hljs {
-  padding: 8px 2px;
-  border-radius: 5px;
+  padding: 12px 2px 12px 40px !important;
+  border-radius: 5px !important;
   position: relative;
-  ol {
-    list-style: decimal;
-    margin: 0;
-    margin-left: 40px;
-    padding: 0;
-    li {
-      list-style: decimal-leading-zero;
-      position: relative;
-      padding-left: 10px;
-      .line-num {
-        position: absolute;
-        left: -40px;
-        top: 0;
-        width: 40px;
-        height: 100%;
-        border-right: 1px solid rgba(0, 0, 0, .66);
+  font-size: 14px !important;
+  line-height: 22px !important;
+  overflow: hidden !important;
+  code {
+    display: block !important;
+    margin: 0 10px !important;
+    overflow-x: auto !important;
+  }
+  .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    bottom: 12px;
+    left: 0;
+    font-size: 100%;
+    width: 40px;
+    text-align: center;
+    letter-spacing: -1px;
+    border-right: 1px solid rgba(0, 0, 0, .66);
+    user-select: none;
+    counter-reset: linenumber;
+    span {
+      pointer-events: none;
+      display: block;
+      counter-increment: linenumber;
+      &:before {
+        content: counter(linenumber);
+        color: #999;
+        display: block;
+        text-align: center;
       }
     }
   }
   b.name {
     position: absolute;
     top: 2px;
-    right: 12px;
+    right: 55px;
     z-index: 10;
     color: #999;
     pointer-events: none;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    z-index: 10;
+    color: #333;
+    cursor: pointer;
   }
 }
 </style>
