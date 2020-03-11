@@ -263,7 +263,7 @@ pre.hljs {
   b.name {
     position: absolute;
     top: 2px;
-    right: 55px;
+    right: 50px;
     z-index: 10;
     color: #999;
     pointer-events: none;
@@ -275,6 +275,9 @@ pre.hljs {
     z-index: 10;
     color: #333;
     cursor: pointer;
+    background-color: #fff;
+    border: 0;
+    border-radius: 2px;
   }
 }
 </style>
