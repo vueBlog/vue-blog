@@ -11,7 +11,7 @@
     <div class="website-information">
       <span>Powered by <a class="link-item" href="https://github.com/fxss5201" target="_blank" style="margin: 0 5px;">fxss5201</a> © 2019-{{ curYear }}</span>
       <router-link to="/about" class="author">{{ author }}</router-link>
-      <span>{{ record }}</span>
+      <a class="link-item" :href="record_link" target="_blank">{{ record }}</a>
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ export default {
       friendLink: JSON.parse(process.env.VUE_APP_friendLink),
       author: process.env.VUE_APP_author,
       record: process.env.VUE_APP_record,
+      record_link: process.env.VUE_APP_record_link,
       curYear: ''
     }
   },
