@@ -234,6 +234,25 @@ pre.hljs {
     display: block !important;
     margin: 0 10px !important;
     overflow-x: auto !important;
+    &::-webkit-scrollbar {
+      z-index: 11;
+      width: 6px;
+    }
+    &::-webkit-scrollbar:horizontal {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      width: 6px;
+      background: #666;
+    }
+    &::-webkit-scrollbar-corner,&::-webkit-scrollbar-track {
+      background: #1E1E1E;
+    }
+    &::-webkit-scrollbar-track-piece {
+      background: #1E1E1E;
+      width: 6px
+    }
   }
   .line-numbers-rows {
     position: absolute;
