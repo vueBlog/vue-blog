@@ -31,7 +31,7 @@
         <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo"></prev-and-next>
       </div>
       <div class="detail-content">
-        <div class="article-content markdown-body" v-html="info.articleContentHtml"></div>
+        <div class="article-content markdown-body" v-html="handleDetail"></div>
       </div>
       <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo" style="padding: 15px;"></prev-and-next>
     </el-main>
@@ -107,6 +107,27 @@ export default {
     },
     metaDescription () {
       return `${this.title} | ${process.env.VUE_APP_description}`
+    },
+    handleDetail () {
+      let res = this.info.articleContentHtml
+      if (!res) return false
+      const aReg = /<a.*href="(.*)">(.*?)<\/a>/gi
+      let regArray
+      const aArray = []
+      while ((regArray = aReg.exec(res)) !== null) {
+        aArray.push(regArray)
+      }
+      for (let index = 0, length = aArray.length; index < length; index++) {
+        const element = aArray[index]
+        if (element && element.length === 3) {
+          if (element[1].indexOf('http') === 0) {
+            const svg = '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>'
+            const html = `<a href="${element[1]}" target="_blank">${element[2]}${svg}</a>`
+            res = res.replace(element[0], html)
+          }
+        }
+      }
+      return res
     }
   },
   metaInfo () {
@@ -215,6 +236,15 @@ export default {
     table {
       width: auto !important;
       max-width: 100% !important;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: -50px 0 0;
+      padding: 65px 0 15px;
     }
   }
 }
