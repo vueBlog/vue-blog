@@ -30,8 +30,8 @@
         </div>
         <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo"></prev-and-next>
       </div>
-      <div class="detail-content">
-        <div class="article-content markdown-body" v-html="handleDetail"></div>
+      <div :class="{ 'fixed-toc-box': tocFixed }" class="detail-content">
+        <div ref="articleContent" class="article-content markdown-body" v-html="handleDetail"></div>
       </div>
       <prev-and-next v-if="getResult" :prevInfo="prevInfo" :nextInfo="nextInfo" style="padding: 15px;"></prev-and-next>
     </el-main>
@@ -62,7 +62,8 @@ export default {
       nextInfo: {},
       authorInfo: {},
       getResult: false,
-      clipboard: ''
+      clipboard: '',
+      tocFixed: false
     }
   },
   components: {
@@ -153,6 +154,10 @@ export default {
         this.$message.error('复制成功失败')
       })
     })
+    window.addEventListener('scroll', this.pageScroll, false)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.pageScroll, false)
   },
   methods: {
     async apiArticleDetailMethod () {
@@ -189,6 +194,16 @@ export default {
         })
         this.info.articleStart = result.data.articleStart
       }
+    },
+    pageScroll () {
+      if (document.querySelector('.markdownIt-TOC')) {
+        const pageScrollTop = document.documentElement.scrollTop
+        if (pageScrollTop >= 200) {
+          this.tocFixed = true
+        } else {
+          this.tocFixed = false
+        }
+      }
     }
   },
   watch: {
@@ -217,6 +232,16 @@ export default {
     color: currentColor;
     margin-left: -1.5em;
     line-height: 26px;
+  }
+}
+.fixed-toc-box {
+  .markdownIt-TOC {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    z-index: 100;
+    margin-left: 575px;
+    max-width: 200px;
   }
 }
 .article-content {
