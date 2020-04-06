@@ -243,8 +243,8 @@ export default {
     h4,
     h5,
     h6 {
-      margin: -50px 0 0;
-      padding: 65px 0 15px;
+      margin: -50px 0 10px;
+      padding: 65px 0 10px;
     }
   }
 }
