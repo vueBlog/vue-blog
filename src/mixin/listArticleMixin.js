@@ -77,7 +77,8 @@ export default {
       if (result.isok) {
         this.$message({
           message: '删除成功',
-          type: 'success'
+          type: 'success',
+          offset: 80
         })
         this.apiArticleListMethod()
         this.$store.dispatch('aside/apigetAsideMethod')

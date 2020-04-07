@@ -124,10 +124,18 @@ export default {
       const isLt2M = file.size / 1024 / 1024 < 2
 
       if (!isJPG && !isPNG) {
-        this.$message.error('上传头像图片只能是 JPG/PNG 格式!')
+        this.$message({
+          message: '上传头像图片只能是 JPG/PNG 格式!',
+          type: 'error',
+          offset: 80
+        })
       }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
+        this.$message({
+          message: '上传头像图片大小不能超过 2MB!',
+          type: 'error',
+          offset: 80
+        })
       }
       return (isJPG || isPNG) && isLt2M
     },
@@ -164,7 +172,8 @@ export default {
       if (result.isok) {
         this.$message({
           message: '保存成功',
-          type: 'success'
+          type: 'success',
+          offset: 80
         })
         this.$nextTick(() => {
           this.$store.dispatch('tokenGetUserInfo')

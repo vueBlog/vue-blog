@@ -148,16 +148,28 @@ export default {
     this.$nextTick(() => {
       this.clipboard = new Clipboard('.copy-btn')
       this.clipboard.on('success', (e) => {
-        this.$message.success('复制成功')
+        this.$message({
+          message: '复制成功',
+          type: 'success',
+          offset: 80
+        })
       })
       this.clipboard.on('error', (e) => {
-        this.$message.error('复制成功失败')
+        this.$message({
+          message: '复制失败',
+          type: 'error',
+          offset: 80
+        })
       })
     })
-    window.addEventListener('scroll', this.pageScroll, false)
+    if (document.documentElement.clientWidth > 1590) {
+      window.addEventListener('scroll', this.pageScroll, false)
+    }
   },
   beforeDestroy () {
-    window.removeEventListener('scroll', this.pageScroll, false)
+    if (document.documentElement.clientWidth > 1590) {
+      window.removeEventListener('scroll', this.pageScroll, false)
+    }
   },
   methods: {
     async apiArticleDetailMethod () {
@@ -190,7 +202,8 @@ export default {
       if (result.isok) {
         this.$message({
           message: 'Add star success',
-          type: 'success'
+          type: 'success',
+          offset: 80
         })
         this.info.articleStart = result.data.articleStart
       }
@@ -240,8 +253,17 @@ export default {
     top: 80px;
     left: 50%;
     z-index: 100;
+    padding-top: 26px;
     margin-left: 575px;
-    max-width: 200px;
+    max-width: 220px;
+    max-height: calc(100vh - 168px);
+    overflow-y: auto;
+    &::before {
+      position: fixed;
+      top: 80px;
+      width: 220px;
+      background-color: #fff;
+    }
   }
 }
 .article-content {

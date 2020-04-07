@@ -175,7 +175,8 @@ export default {
       if (result.isok) {
         this.$message({
           message: type === 'delete' ? '移出成功' : '添加成功',
-          type: 'success'
+          type: 'success',
+          offset: 80
         })
         this.$nextTick(() => {
           this.apiColumnArticleListMethod()

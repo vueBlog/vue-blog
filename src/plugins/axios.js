@@ -59,9 +59,10 @@ _axios.interceptors.request.use(
     // Do something with request error
     pageLoading && pageLoading.close()
     pageAxiosList.clear()
-    Vue.prototype.$message.error({
+    Vue.prototype.$message({
       message: '网络出错，请重试',
-      showClose: true
+      type: 'error',
+      offset: 80
     })
     pageLoading = null
     return Promise.reject(error)
@@ -90,14 +91,16 @@ _axios.interceptors.response.use(
       if (response.data.msg) {
         let errorMessage =
           response.data.msg && response.data.msg.length ? response.data.msg : '网络出错，请重试'
-        Vue.prototype.$message.error({
+        Vue.prototype.$message({
           message: errorMessage,
-          showClose: true
+          type: 'error',
+          offset: 80
         })
       } else {
-        Vue.prototype.$message.error({
+        Vue.prototype.$message({
           message: response.data.error,
-          showClose: true
+          type: 'error',
+          offset: 80
         })
       }
     }
@@ -114,9 +117,10 @@ _axios.interceptors.response.use(
       console.log('alreadySent')
     } else {
       pageLoading && pageLoading.close()
-      Vue.prototype.$message.error({
+      Vue.prototype.$message({
         message: '网络出错，请重试',
-        showClose: true
+        type: 'error',
+        offset: 80
       })
       pageAxiosList.clear()
     }
