@@ -111,7 +111,7 @@ export default {
     },
     handleDetail () {
       let res = this.info.articleContentHtml
-      if (!res) return false
+      if (!res) return
       const aReg = /<a.*?href="(.*?)">(.*?)<\/a>/gi
       let regArray
       const aArray = []
