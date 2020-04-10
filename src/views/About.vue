@@ -18,6 +18,7 @@
             :info="author.asideArticle.info"></aside-card>
         </el-collapse-item>
       </el-collapse>
+      <aside-ad></aside-ad>
     </el-aside>
     <el-main class="content">
       <div class="author-info" v-if="currentAuthor.authorIntroduce">

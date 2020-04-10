@@ -1,7 +1,7 @@
 <template>
   <div class="header clearfix">
     <router-link to="/" class="logo-box fl">
-      <img class="logo" src="./../assets/logo.jpg" alt="logo">
+      <img class="logo" :src="logo" alt="logo">
       <div class="logo-text">{{ logoText }}</div>
     </router-link>
     <div class="fr clearfix">
@@ -71,6 +71,7 @@ export default {
   name: 'PageHeader',
   data () {
     return {
+      logo: require('@/assets/img/logo.jpg'),
       menuObj: [
         {
           index: '1',

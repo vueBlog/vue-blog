@@ -14,6 +14,7 @@
           :title="item.title"
           :info="item.info"></aside-card>
       </template>
+      <aside-ad></aside-ad>
     </el-aside>
     <el-main class="content">
       <div class="content-header clearfix">

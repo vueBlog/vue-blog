@@ -10,6 +10,7 @@ import SkeletonCircle from './components/skeleton/circle/index.js'
 import './plugins/element.js'
 import moment from 'moment'
 import './style/common.scss'
+import AsideAd from '@/components/AsideAd.vue'
 
 // console.log(process.env.VUE_APP_host)
 // console.log(process.env.VUE_APP_pathname)
@@ -26,6 +27,7 @@ const options = {
 Vue.use(VueProgressBar, options)
 Vue.use(SkeletonRect)
 Vue.use(SkeletonCircle)
+Vue.component('aside-ad', AsideAd)
 
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment
