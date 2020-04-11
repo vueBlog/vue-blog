@@ -1,5 +1,5 @@
 <template>
-  <div class="ad-box">
+  <div v-if="adList.length" class="ad-box">
     <swiper ref="mySwiper" :options="swiperOptions">
       <swiper-slide v-for="(item, index) in adList" :key="index">
         <a :href="item.adUrl" target="_blank" class="item-box">
@@ -20,7 +20,7 @@ export default {
   name: 'AsideAd',
   data () {
     return {
-      adList: '',
+      adList: [],
       swiperOptions: {
         loop: true,
         autoplay: {
