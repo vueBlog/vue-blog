@@ -3,7 +3,9 @@
     <el-page-header @back="$router.back()" content="专栏列表"></el-page-header>
     <div class="row">
       <el-button plain @click="addColumn">添加专栏</el-button>
+      <el-button plain @click="changeSort">更新排序</el-button>
     </div>
+    <div class="row">提示：排序值尽量填不同的数值，以免排列顺序有误。</div>
     <el-table
       v-if="tableData.length"
       :data="tableData"
@@ -27,6 +29,20 @@
         width="240">
       </el-table-column>
       <el-table-column
+        label="排序"
+        width="155">
+        <template slot-scope="scope">
+          <el-input-number
+            v-model="scope.row.columnSort"
+            :min="1"
+            size="mini"
+            :step="1"
+            placeholder="排序数值"
+            step-strictly>
+          </el-input-number>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="操作"
         width="220">
         <template slot-scope="scope">
@@ -48,7 +64,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { apiColumnList, apiColumnDelete } from './../service/column'
+import { apiColumnList, apiColumnDelete, apiColumnChangeSort } from './../service/column'
 export default {
   name: 'AdminColumn',
   data () {
@@ -124,6 +140,14 @@ export default {
           type: 'success',
           offset: 80
         })
+        this.apiColumnListMethod()
+      }
+    },
+    async changeSort () {
+      let result = await apiColumnChangeSort({
+        list: this.tableData
+      })
+      if (result.isok) {
         this.apiColumnListMethod()
       }
     }

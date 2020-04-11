@@ -59,3 +59,12 @@ export const apiColumnArticleAllList = (paramsData) => {
     }
   })
 }
+
+export const apiColumnChangeSort = (paramsData) => {
+  return Vue.axios.post('/column/changeSort', {
+    ...paramsData
+  },
+  {
+    showLoading: true
+  })
+}
