@@ -55,7 +55,8 @@
             <el-menu-item index="6-2" route="/admin/column">文章专栏</el-menu-item>
             <el-menu-item index="6-3" route="/admin/views">访问量</el-menu-item>
             <el-menu-item index="6-4" route="/admin/authority" v-if="userInfo.admin">授权</el-menu-item>
-            <el-menu-item index="6-5" route="/signIn">退出</el-menu-item>
+            <el-menu-item index="6-5" route="/admin/ad" v-if="userInfo.admin">广告位</el-menu-item>
+            <el-menu-item index="6-6" route="/signIn">退出</el-menu-item>
           </el-submenu>
         </template>
       </el-menu>
@@ -140,6 +141,9 @@ export default {
         case 'adminAuthority':
           res = '6-4'
           break
+        case 'adminAd':
+          res = '6-5'
+          break
         default:
           res = '1'
           break
@@ -206,7 +210,7 @@ export default {
       }
     },
     menuHandleSelect (item) {
-      if (item === '6-5') {
+      if (item === '6-6') {
         this.$store.commit('signIn/setToken', '')
         this.$cookie.remove('vueBlogToken', { path: '' })
       }

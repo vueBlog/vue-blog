@@ -21,6 +21,10 @@
             <i class="el-icon-set-up"></i>
             <span slot="title">授权</span>
           </el-menu-item>
+          <el-menu-item index="5" route="/admin/ad" v-if="userInfo.admin">
+            <i class="el-icon-link"></i>
+            <span slot="title">广告位</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main class="main-container">
@@ -67,6 +71,12 @@ export default {
           break
         case 'adminAuthority':
           index = '4'
+          break
+        case 'adminAd':
+          index = '5'
+          break
+        case 'adminAdEditor':
+          index = '5'
           break
         default:
           index = '1'

@@ -3,10 +3,10 @@
     <el-page-header @back="$router.back()" content="编辑专栏"></el-page-header>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" style="margin-top: 15px;">
       <el-form-item label="专栏名称" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+        <el-input v-model="ruleForm.name" placeholder="请输入专栏名称"></el-input>
       </el-form-item>
       <el-form-item label="专栏介绍" prop="desc">
-        <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+        <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入专栏介绍"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">{{ $route.params.id ? '更新' : '保存' }}</el-button>
@@ -32,7 +32,7 @@ export default {
           { required: true, message: '请输入专栏名称', trigger: 'blur' }
         ],
         desc: [
-          { required: true, message: '请填写专栏介绍', trigger: 'blur' }
+          { required: true, message: '请输入专栏介绍', trigger: 'blur' }
         ]
       }
     }

@@ -2,9 +2,9 @@
   <div class="ad-box">
     <swiper ref="mySwiper" :options="swiperOptions">
       <swiper-slide v-for="(item, index) in adList" :key="index">
-        <a :href="item.url" class="item-box">
-          <img class="img" :src="item.pc_img" :alt="item.name">
-          <div class="title">{{ item.name }}</div>
+        <a :href="item.adUrl" target="_blank" class="item-box">
+          <img class="img" :src="item.adPcImg" :alt="item.adName">
+          <div class="title">{{ item.adName }}</div>
         </a>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import adList from '@/assets/js/asideAd.js'
+import { apiAdList } from '@/service/ad'
 import '@/plugins/swiper.js'
 
 export default {
   name: 'AsideAd',
   data () {
     return {
-      adList,
+      adList: '',
       swiperOptions: {
         loop: true,
         autoplay: {
@@ -38,6 +38,20 @@ export default {
   computed: {
     swiper () {
       return this.$refs.mySwiper.$swiper
+    }
+  },
+  created () {
+    this.apiAdListMethod()
+  },
+  methods: {
+    async apiAdListMethod () {
+      if (this.loading) return false
+      this.loading = true
+      let result = await apiAdList({})
+      this.loading = false
+      if (result.isok) {
+        this.adList = result.data
+      }
     }
   }
 }

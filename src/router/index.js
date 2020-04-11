@@ -15,6 +15,8 @@ const PageAdminColumnDetail = () => import(/* webpackChunkName: "group-admin" */
 const PageAdminColumnEditor = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminColumnEditor.vue')
 const PageAdminViews = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminViews.vue')
 const PageAdminAuthority = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminAuthority.vue')
+const PageAdminAd = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminAd.vue')
+const PageAdminAdEditor = () => import(/* webpackChunkName: "group-admin" */ './../views/AdminAdEditor.vue')
 
 Vue.use(VueRouter)
 Vue.use(Meta)
@@ -79,6 +81,16 @@ const routes = [
         path: 'authority',
         name: 'adminAuthority',
         component: PageAdminAuthority
+      },
+      {
+        path: 'ad',
+        name: 'adminAd',
+        component: PageAdminAd
+      },
+      {
+        path: 'ad/edit/:id?',
+        name: 'adminAdEditor',
+        component: PageAdminAdEditor
       },
       {
         path: ':id',
