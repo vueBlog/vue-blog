@@ -9,7 +9,7 @@
         <el-input v-model="ruleForm.adUrl" placeholder="请输入广告链接"></el-input>
       </el-form-item>
       <el-form-item label="广告PC图" prop="adPcImg">
-        <el-input v-model="ruleForm.adPcImg" readonly placeholder="请上传广告PC图"></el-input>
+        <el-input v-model="ruleForm.adPcImg" placeholder="请上传广告PC图"></el-input>
         <div class="row">
           <el-upload
             ref="headerUpload"
@@ -25,7 +25,7 @@
         </div>
       </el-form-item>
       <el-form-item label="广告M图" prop="adMImg">
-        <el-input v-model="ruleForm.adMImg" readonly placeholder="请上传广告M图"></el-input>
+        <el-input v-model="ruleForm.adMImg" placeholder="请上传广告M图"></el-input>
         <div class="row">
           <el-upload
             ref="headerUpload"
@@ -121,8 +121,8 @@ export default {
       })
       if (result.isok) {
         this.ruleForm = result.data
-        this.fileListPc = [{ url: result.data.adPcImg }]
-        this.fileListM = [{ url: result.data.adPcImg }]
+        this.fileListPc = result.data.adPcImg ? [{ url: result.data.adPcImg }] : []
+        this.fileListM = result.data.adMImg ? [{ url: result.data.adMImg }] : []
       }
     },
     beforeAvatarUploadPc (file) {

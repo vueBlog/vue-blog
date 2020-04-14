@@ -127,11 +127,7 @@ export default {
           res = '6-1'
           break
         case 'adminColumn':
-          res = '6-2'
-          break
         case 'adminColumnDetail':
-          res = '6-2'
-          break
         case 'adminColumnDetailEditor':
           res = '6-2'
           break
@@ -142,6 +138,7 @@ export default {
           res = '6-4'
           break
         case 'adminAd':
+        case 'adminAdEditor':
           res = '6-5'
           break
         default:
