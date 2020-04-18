@@ -72,7 +72,7 @@
 import { mapState, mapGetters } from 'vuex'
 import './../plugins/mavon-editor'
 import toolbars from './../plugins/mavon-editor-toolbars'
-import { apiAddArticle, apiArticleDetail, apiUpdateArticle } from './../service/article'
+import { apiAddArticle, apiArticleDetail, apiUpdateArticle, apiArticleListClear } from './../service/article'
 import '@/plugins/axios'
 
 const defaultTitle = '写文章'
@@ -184,6 +184,7 @@ export default {
         content: this.articleInfo.desc
       })
       if (result.isok) {
+        apiArticleListClear()
         this.$store.dispatch('aside/apigetAsideMethod')
         this.$store.dispatch('aside/apigetAsideAuthorMethod')
         let content = this.$route.params.id ? '文章更新成功' : '文章保存成功'
@@ -204,6 +205,9 @@ export default {
         content: this.articleInfo.desc
       })
       if (result.isok) {
+        apiArticleListClear()
+        this.$store.dispatch('aside/apigetAsideMethod')
+        this.$store.dispatch('aside/apigetAsideAuthorMethod')
         let content = this.$route.params.id ? '文章更新成功' : '文章保存成功'
         this.$alert(content, '提示', {
           confirmButtonText: '确定',

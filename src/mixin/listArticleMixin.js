@@ -1,5 +1,5 @@
 
-import { apiArticleList, apiDeleteArticle } from './../service/article'
+import { apiArticleList, apiDeleteArticle, apiArticleListClear } from './../service/article'
 import { mapState } from 'vuex'
 
 export default {
@@ -75,6 +75,7 @@ export default {
         userId: this.userInfo.id
       })
       if (result.isok) {
+        apiArticleListClear()
         this.$message({
           message: '删除成功',
           type: 'success',

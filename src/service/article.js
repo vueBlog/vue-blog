@@ -19,6 +19,14 @@ export const apiArticleList = (paramsData) => {
   })
 }
 
+export const apiArticleListClear = (paramsData) => {
+  return Vue.axios.get('/articleList/clear', {
+    params: {
+      ...paramsData
+    }
+  })
+}
+
 export const apiArticleDetail = (paramsData) => {
   return Vue.axios.get('/article/detail', {
     params: {
