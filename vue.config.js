@@ -34,19 +34,19 @@ module.exports = {
       const cdn = {
         css: [
           // element-ui css
-          'https://cdn.bootcdn.net/ajax/libs/element-ui/2.4.5/theme-chalk/index.css'
+          'https://cdn.bootcdn.net/ajax/libs/element-ui/2.12.0/theme-chalk/index.css'
         ],
         js: [
           // vue
           'https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js',
           // vue-router
-          'https://cdn.bootcdn.net/ajax/libs/vue-router/3.0.6/vue-router.min.js',
+          'https://cdn.bootcdn.net/ajax/libs/vue-router/3.1.3/vue-router.min.js',
           // vuex
           'https://cdn.bootcdn.net/ajax/libs/vuex/3.1.2/vuex.min.js',
           // axios
           'https://cdn.bootcdn.net/ajax/libs/axios/0.18.0/axios.min.js',
           // element-ui js
-          'https://cdn.bootcdn.net/ajax/libs/element-ui/2.4.5/index.js'
+          'https://cdn.bootcdn.net/ajax/libs/element-ui/2.12.0/index.js'
         ]
       }
       config.plugin('html')
