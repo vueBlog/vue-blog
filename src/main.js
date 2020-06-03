@@ -36,7 +36,7 @@ Vue.prototype.$cookie = Cookies
 router.beforeEach((to, from, next) => {
   Vue.prototype.$message.closeAll()
   const CancelToken = Vue.axios.CancelToken
-  store.state.source.cancel && store.state.source.cancel()
+  from.matched.length && store.state.source.cancel && store.state.source.cancel()
   store.commit('setSource', CancelToken.source())
   Vue.axios.post('/views/add', {
     from: from.fullPath,
