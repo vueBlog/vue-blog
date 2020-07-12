@@ -11,6 +11,13 @@ import './plugins/element.js'
 import moment from 'moment'
 import './style/common.scss'
 import AsideAd from '@/components/AsideAd.vue'
+import * as Sentry from '@sentry/browser'
+import { Vue as VueIntegration } from '@sentry/integrations'
+
+Sentry.init({
+  dsn: 'http://0aca0d12d95a44cca26e194b41609609@192.168.1.13:9000/2',
+  integrations: [new VueIntegration({ Vue, attachProps: true, logErrors: true })]
+})
 
 // console.log(process.env.VUE_APP_host)
 // console.log(process.env.VUE_APP_pathname)
