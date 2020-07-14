@@ -14,10 +14,14 @@ import AsideAd from '@/components/AsideAd.vue'
 import * as Sentry from '@sentry/browser'
 import { Vue as VueIntegration } from '@sentry/integrations'
 
-Sentry.init({
-  dsn: 'http://0aca0d12d95a44cca26e194b41609609@192.168.1.13:9000/2',
-  integrations: [new VueIntegration({ Vue, attachProps: true, logErrors: true })]
-})
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    dsn: 'https://53e44732a0fd4c398fe614fd058f1668@o412908.ingest.sentry.io/5296080',
+    release: process.env.RELEASE_VERSION,
+    environment: process.env.NODE_ENV,
+    integrations: [new VueIntegration({ Vue, attachProps: true, logErrors: true })]
+  })
+}
 
 // console.log(process.env.VUE_APP_host)
 // console.log(process.env.VUE_APP_pathname)

@@ -1,11 +1,14 @@
 const CompressionPlugin = require('compression-webpack-plugin')
 const productionGzipExtensions = ['js', 'css']
+
+const SentryPlugin = require('@sentry/webpack-plugin')
+
 module.exports = {
   publicPath: '/vue-blog/',
-  outputDir: 'docs',
+  outputDir: 'dist',
   assetsDir: undefined,
   runtimeCompiler: undefined,
-  productionSourceMap: undefined,
+  productionSourceMap: true,
   parallel: undefined,
 
   css: {
@@ -66,6 +69,16 @@ module.exports = {
           test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
           threshold: 10240,
           minRatio: 0.8
+        })
+      )
+
+      config.plugins.push(
+        new SentryPlugin({
+          include: './dist/',
+          release: process.env.RELEASE_VERSION, // 一致的版本号
+          configFile: 'sentry.properties', // 不用改
+          ignore: ['node_modules', 'webpack.config.js'],
+          urlPrefix: '~/vue-blog/' // 这里指的你项目需要观测的文件如果你的项目有publicPath这里加上就对了
         })
       )
     } else {
