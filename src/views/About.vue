@@ -13,6 +13,7 @@
           </template>
           <aside-author :info="author"></aside-author>
           <aside-card
+            v-if="author.asideArticle"
             :cardType="author.asideArticle.type"
             :title="author.asideArticle.title"
             :info="author.asideArticle.info"></aside-card>
