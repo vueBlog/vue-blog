@@ -22,7 +22,35 @@ var OS = (function () {
     phone: a
   }
 }())
-if (OS.phone || OS.ipad) {
-  const url = `${location.origin}${location.pathname.replace('/vue-blog', '/blogNuxtM')}${location.search}${location.hash}`
-  location.href = url
+
+// 有些页面只有PC端有，移动端没有，不需要跳转移动端的页面
+const PCPathname = [
+  'signIn', // 登录页
+  'editor', // 写文章页面
+  'admin' // 个人中心相关页面
+]
+
+/**
+ * 是否属于PC端独有页面
+ * @param {*} PCPathname PC端独有页面的特殊标识字段数组
+ * @param {*} location 当前location
+ */
+function isBelongPCPathname (PCPathname, location) {
+  let flag = false
+  const pathname = location.pathname
+  for (let index = 0; index < PCPathname.length; index++) {
+    const element = PCPathname[index]
+    if (pathname.indexOf(element) !== -1) {
+      flag = true
+      break
+    }
+  }
+  return flag
+}
+
+if (process.env.NODE_ENV === 'production' && (OS.phone || OS.ipad)) {
+  if (!isBelongPCPathname(PCPathname, location)) {
+    const url = `${location.origin}${location.pathname.replace('/vue-blog', '/blogNuxtM')}${location.search}${location.hash}`
+    location.href = url
+  }
 }
