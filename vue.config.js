@@ -37,19 +37,19 @@ module.exports = {
       const cdn = {
         css: [
           // element-ui css
-          'https://cdn.bootcdn.net/ajax/libs/element-ui/2.12.0/theme-chalk/index.css'
+          'https://unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css'
         ],
         js: [
           // vue
-          'https://cdn.bootcdn.net/ajax/libs/vue/2.6.10/vue.min.js',
+          'https://cdn.jsdelivr.net/npm/vue@2.6.10',
           // vue-router
-          'https://cdn.bootcdn.net/ajax/libs/vue-router/3.1.3/vue-router.min.js',
+          'https://unpkg.com/vue-router@3.1.3/dist/vue-router.min.js',
           // vuex
-          'https://cdn.bootcdn.net/ajax/libs/vuex/3.1.2/vuex.min.js',
+          'https://unpkg.com/vuex@3.1.2',
           // axios
-          'https://cdn.bootcdn.net/ajax/libs/axios/0.18.0/axios.min.js',
+          'https://unpkg.com/axios@0.18.0/dist/axios.min.js',
           // element-ui js
-          'https://cdn.bootcdn.net/ajax/libs/element-ui/2.12.0/index.js'
+          'https://unpkg.com/element-ui@2.12.0/lib/index.js'
         ]
       }
       config.plugin('html')
